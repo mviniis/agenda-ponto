@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Packages\PerfilTarefa\Actions;
+namespace App\Models\Packages\PerfilTarefa\Actions;
 
-use \App\Models\PerfilTarefaDTO;
+use \App\Models\DTOs\PerfilTarefaDTO;
 use \Mviniis\ConnectionDatabase\DB\DBExecute;
 
 /**
