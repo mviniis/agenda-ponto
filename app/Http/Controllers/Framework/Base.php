@@ -18,9 +18,9 @@ abstract class Base extends Controller implements BaseInterface {
    */
   protected HandlerCss $handlerCSS;
 
-    /**
+  /**
    * Guarda o objeto de definição dos scripts da página 
    * @var HandlerJs
    */
-  protected HandlerCss $handlerJS;
+  protected HandlerJs $handlerJS;
 }

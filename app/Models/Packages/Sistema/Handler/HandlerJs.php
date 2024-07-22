@@ -9,4 +9,11 @@ namespace App\Models\Packages\Sistema\Handler;
  * 
  * @author Matheus Vinicius
  */
-class HandlerJs extends Base {}
+class HandlerJs extends Base {
+  /**
+   * Construtor da classe
+   */
+  public function __construct() {
+    $this->definirTipoDoArquivo('js');
+  }
+}

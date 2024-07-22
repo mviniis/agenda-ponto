@@ -17,13 +17,24 @@ abstract class Base {
   private string $fileName;
 
   /**
+   * Tipo da extensão do arquivo de handler
+   * @var string
+   */
+  private string $typeFile;
+
+  /**
+   * Arquivos e diretórios de estilização
+   * @var array
+   */
+  private array $filesAndFolders = [];
+
+  /**
    * Método responsável por definir a extensão do arquivo de handler que será gerado
    * @param string      $typeFile      Tipo da extensão do arquivo de handler
    * @return self
    */
-  protected function setTypeFile(
-    private string $typeFile
-  ): self {
+  protected function definirTipoDoArquivo(string $tipo): self {
+    $this->typeFile = $tipo;
     return $this;
   }
 
@@ -42,9 +53,8 @@ abstract class Base {
    * @param  array      $filesAndFolders      Arquivos e diretórios de estilização
    * @return self
    */
-  public function setFilesAndFolders(
-    private array $filesAndFolders = []
-  ): self {
+  public function setFilesAndFolders($files): self {
+    $this->filesAndFolders = $files;
     return $this;
   }
 }
