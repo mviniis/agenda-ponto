@@ -137,6 +137,9 @@ abstract class Base {
     $ultimaAtualizacao = new DateTime(date('Y-m-d H:i:s', filectime($this->fullPathFile)));
     $dataAtualServidor = new DateTime();
 
+    // VALIDA SE O ARQUIVO NUNCA DEVE SER ATUALIZADO
+    if($tempoMaximo <= 0) return false;
+
     // VERIFICA O SE PODE MODIFICAR O CONTEÚDO DO ARQUIVO
     $ultimaAtualizacao->modify("+{$tempoMaximo} minutes");
 
