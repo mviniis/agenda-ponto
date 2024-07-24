@@ -130,7 +130,8 @@ abstract class Base {
    * @return bool
    */
   private function validarCarregamentoDeNovoConteudo(): bool {
-    if($this->permitirCarregarConteudo) return true;
+    $ambienteDesenvolvimento = isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] != 'production';
+    if($this->permitirCarregarConteudo || $ambienteDesenvolvimento) return true;
 
     // CARREGA AS CONFIGURAÇÕES
     $tempoMaximo       = (int) ($_ENV['APP_TIME_HANDLER'] ?? 0);
