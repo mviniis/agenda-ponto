@@ -1,0 +1,10 @@
+body {
+  position: relative !important;
+  height: 100vh;
+}
+
+body > .box-debug {
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
+}

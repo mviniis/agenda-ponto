@@ -8,5 +8,7 @@
     {!! $conteudo !!}
 
     {!! $footer !!}
+
+    {!! $debug !!}
   </body>
 </html>

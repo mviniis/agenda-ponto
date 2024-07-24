@@ -90,6 +90,33 @@ abstract class Base extends Controller implements BaseInterface {
     return $retorno;
   }
 
+  /**
+   * Método responsável por montar o layout dos itens do debug
+   * @param  mixed          $dadosLayout       Dados do layout
+   * @param  int            $recursao          Define o nível da recursão dos dados
+   * @param  string         $hashParent        Hash do item pai
+   * @return string
+   */
+  private function montarLayoutDebug($dadosLayout, int $recursao = 0, string $hashParent = 'conteudoBoxDebugAcordion'): string {
+    $dados    = '';
+    $contador = 0;
+    foreach($dadosLayout as $chave => $valor) {
+      $hashItem = "indice-{$recursao}-{$contador}";
+      if($valor instanceof stdClass) $valor = $this->montarLayoutDebug($valor, ($recursao + 1), $hashItem);
+
+      $dados .= view('estrutura.debug.box-item', [
+        'nomeCabecalho'  => $chave,
+        'valorCabecalho' => $valor,
+        'indiceItem'     => $hashItem,
+        'hashParent'     => $hashParent
+      ])->render();
+
+      $contador++;
+    }
+
+    return $dados;
+  }
+
   public function atualizarHandlers(bool $forcarAtualizacao = false): void {
     if($this->handlerCSS instanceof HandlerCss) {
       $this->addConteudo('linkCss', $this->handlerCSS->getArquivoHandler($forcarAtualizacao));
@@ -101,15 +128,18 @@ abstract class Base extends Controller implements BaseInterface {
   }
 
   public function getConteudo(string $pagina): mixed {
+    $layoutDebug = '';
     if(isset($_ENV['APP_DEBUG_RESPONSE']) && $_ENV['APP_DEBUG_RESPONSE'] == 'true') {
-      echo "<pre>"; print_r($this->dadosLayout); echo "</pre>";
+      $layoutDebug = view('estrutura.debug.box', ['itens' => $this->montarLayoutDebug($this->dadosLayout)]);
     }
 
     return view('estrutura.estrutura', [
       'head'     => view('estrutura.head', $this->dadosLayout)->render(),
       'header'   => view('estrutura.header', $this->dadosLayout)->render(),
       'conteudo' => view('conteudo.' . $pagina, $this->dadosLayout)->render(),
-      'footer'   => view('estrutura.footer', $this->dadosLayout)->render()
+      'footer'   => view('estrutura.footer', $this->dadosLayout)->render(),
+      'debug'    => $layoutDebug
     ]);
   }
+  
 }
