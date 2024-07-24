@@ -29,4 +29,10 @@ interface BaseInterface {
    * @return string
    */
   public function getConteudo(string $pagina): mixed;
+
+  /**
+   * Método responsável por gerar a paginacao de uma página
+   * @return self
+   */
+  public function gerarPaginacao(): self;
 }

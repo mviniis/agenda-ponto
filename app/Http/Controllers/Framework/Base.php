@@ -26,6 +26,12 @@ abstract class Base extends Controller implements BaseInterface {
   protected ?HandlerJs $handlerJS;
 
   /**
+   * Guarda a paginação aplicada na página atual
+   * @var array
+   */
+  protected array $paginacao = [];
+
+  /**
    * Guarda os dados que serão utilizados no layout
    * @var array
    */
@@ -128,6 +134,10 @@ abstract class Base extends Controller implements BaseInterface {
   }
 
   public function getConteudo(string $pagina): mixed {
+    // ADICIONA OS DADOS DA PAGINAÇÃO
+    if(!empty($this->paginacao)) $this->addConteudo('paginacao', $this->paginacao); 
+
+    // ADICIONA O LAYOUT DO DEBUGER
     $layoutDebug = '';
     if(isset($_ENV['APP_DEBUG_RESPONSE']) && $_ENV['APP_DEBUG_RESPONSE'] == 'true') {
       $layoutDebug = view('estrutura.debug.box', ['itens' => $this->montarLayoutDebug($this->dadosLayout)]);
@@ -141,5 +151,8 @@ abstract class Base extends Controller implements BaseInterface {
       'debug'    => $layoutDebug
     ]);
   }
-  
+
+  public function gerarPaginacao(): self {
+    return $this;
+  }
 }

@@ -8,3 +8,7 @@ body > .box-debug {
   left: 5px;
   bottom: 5px;
 }
+body > .box-debug > #conteudoBoxDebug {
+  max-height: 465px;
+  overflow: auto;
+}
