@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Framework;
 
+use \stdClass;
 use \App\Models\Packages\Sistema\Handler\{HandlerCss, HandlerJs};
 
 /**
@@ -28,17 +29,23 @@ abstract class Base extends Controller implements BaseInterface {
    * Guarda os dados que serão utilizados no layout
    * @var array
    */
-  private array $dadosLayout = [];
+  private array $dadosLayout;
+
+  /**
+   * Define a quantidade máxima de recursões que podem ocorrer ao adicionar um novo valor ao layout
+   */
+  private const MAXIMO_RECURSAO = 5;
 
   /**
    * Construtor da classe
    */
   public function __construct() {
-    $this->dadosLayout = [
-      'URL_APP'    => $_ENV['APP_URL'],
-      'URL_IMG'    => "{$_ENV['APP_URL']}/resources/img",
-      'TITLE_SITE' => $_ENV['APP_TITLE_SITE'],
-    ];
+    $this->dadosLayout = [];
+
+    // ADICIONA AS CONSTANTES
+    $this->addConteudo('URL_APP',    $_ENV['APP_URL']);
+    $this->addConteudo('URL_IMG',    "{$_ENV['APP_URL']}/resources/img");
+    $this->addConteudo('TITLE_SITE', $_ENV['APP_TITLE_SITE']);
   }
   
   /**
@@ -48,13 +55,39 @@ abstract class Base extends Controller implements BaseInterface {
    * @return self
    */
   protected function addConteudo(string $indice, mixed $valor): self {
-    if(!is_array($valor) || !is_object($valor)) $this->dadosLayout[$indice] = $valor;
+    if(!is_object($valor)) $this->dadosLayout[$indice] = $valor;
 
     if(($valor instanceof \Illuminate\Contracts\View\View) || ($valor instanceof \Illuminate\Contracts\View\Factory)) {
       $this->dadosLayout[$indice] = $valor->render();
     }
     
+    if(is_array($valor) && !empty($valor)) $this->dadosLayout[$indice] = $this->adicionarItensArray($valor);
+
     return $this;
+  }
+
+  /**
+   * Método responsável por montar os dados de uma array de dados de layout
+   * @param  array      $dados         Dados que serão validados
+   * @param  int        $recursao      Nível da recursão dos dados
+   * @return mixed
+   */
+  private function adicionarItensArray(array $dados, int $recursao = 1): mixed {
+    $retorno = new stdClass;
+    foreach($dados as $indice => $valor) {
+      if(($recursao) > self::MAXIMO_RECURSAO) continue;
+      
+      $aux = null;
+      if(!is_array($valor)) $aux = $valor;
+
+      if(is_array($valor) && (($recursao + 1) <= self::MAXIMO_RECURSAO)) {
+        $aux = $this->adicionarItensArray($valor, $recursao + 1);
+      }
+
+      if(!is_null($aux)) $retorno->$indice = $aux;
+    }
+
+    return $retorno;
   }
 
   public function atualizarHandlers(bool $forcarAtualizacao = false): void {
