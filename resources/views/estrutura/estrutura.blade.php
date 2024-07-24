@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  @include('estrutura.head', $app)
+  {!! $head !!}
   
   <body>
-    @include('estrutura.header', $app)
+    {!! $header !!}
     
-    @include('conteudo.' . $hashConteudo, $app)
+    {!! $conteudo !!}
 
-    @include('estrutura.footer', $app)
+    {!! $footer !!}
   </body>
 </html>

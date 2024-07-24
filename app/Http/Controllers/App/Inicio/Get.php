@@ -47,6 +47,8 @@ class Get extends Base {
     // MONTA OS ARQUIVO DE HANDLER
     $this->atualizarHandlers();
 
+    $this->addConteudo('teste', view('conteudo.teste'));
+
     return $this->getConteudo('inicio');
   }
 }

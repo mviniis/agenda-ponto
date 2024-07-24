@@ -49,6 +49,11 @@ abstract class Base extends Controller implements BaseInterface {
    */
   protected function addConteudo(string $indice, mixed $valor): self {
     if(!is_array($valor) || !is_object($valor)) $this->dadosLayout[$indice] = $valor;
+
+    if(($valor instanceof \Illuminate\Contracts\View\View) || ($valor instanceof \Illuminate\Contracts\View\Factory)) {
+      $this->dadosLayout[$indice] = $valor->render();
+    }
+    
     return $this;
   }
 
@@ -67,6 +72,11 @@ abstract class Base extends Controller implements BaseInterface {
       echo "<pre>"; print_r($this->dadosLayout); echo "</pre>";
     }
 
-    return view('estrutura.estrutura', ['app' => $this->dadosLayout, 'hashConteudo' => $pagina]);
+    return view('estrutura.estrutura', [
+      'head'     => view('estrutura.head', $this->dadosLayout)->render(),
+      'header'   => view('estrutura.header', $this->dadosLayout)->render(),
+      'conteudo' => view('conteudo.' . $pagina, $this->dadosLayout)->render(),
+      'footer'   => view('estrutura.footer', $this->dadosLayout)->render()
+    ]);
   }
 }
