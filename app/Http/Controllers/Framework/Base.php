@@ -61,6 +61,7 @@ abstract class Base extends Controller implements BaseInterface {
    * @return self
    */
   protected function addConteudo(string $indice, mixed $valor): self {
+    if(is_bool($valor)) $valor = ($valor) ? 'true': 'false';
     if(!is_object($valor)) $this->dadosLayout[$indice] = $valor;
 
     if(($valor instanceof \Illuminate\Contracts\View\View) || ($valor instanceof \Illuminate\Contracts\View\Factory)) {
@@ -84,7 +85,10 @@ abstract class Base extends Controller implements BaseInterface {
       if(($recursao) > self::MAXIMO_RECURSAO) continue;
       
       $aux = null;
-      if(!is_array($valor)) $aux = $valor;
+      if(!is_array($valor)) {
+        if(is_bool($valor)) $valor = ($valor) ? 'true': 'false';
+        $aux = $valor;
+      }
 
       if(is_array($valor) && (($recursao + 1) <= self::MAXIMO_RECURSAO)) {
         $aux = $this->adicionarItensArray($valor, $recursao + 1);

@@ -4,7 +4,7 @@
       <button  class="btn text-left text-white d-flex align-items-center" 
         type="button" data-toggle="collapse" data-target="#{{ $indiceItem }}" aria-expanded="true" aria-controls="{{ $indiceItem }}"
       >
-        <span> <b>Nome do índice:</b> {{ $nomeCabecalho }} </span>
+        <span> <b>Índice:</b> {{ $nomeCabecalho }} </span>
         <span class="material-symbols-outlined"> arrow_drop_down </span>
       </button>
     </h2>
