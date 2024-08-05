@@ -60,7 +60,7 @@ class Get extends Base {
    * Método responsável por realizar a chamada do conteúdo da página
    * @return string
    */
-  public function get() {
+  public function consultar() {
     $this->configure()->gerarPaginacao();
 
     // MONTA OS ARQUIVO DE HANDLER
