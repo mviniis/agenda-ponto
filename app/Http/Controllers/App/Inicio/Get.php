@@ -4,7 +4,6 @@ namespace App\Http\Controllers\App\Inicio;
 
 use \App\Http\Controllers\Framework\Base;
 use \App\Models\Packages\Sistema\Handler\{HandlerCss, HandlerJs};
-use App\Models\Packages\Sistema\Paginacao\Paginacao;
 
 /**
  * class Get
@@ -38,30 +37,12 @@ class Get extends Base {
     return $this;
   }
 
-  public function gerarPaginacao(): self {
-    // GERA A PAGINAÇÃO
-    $totalItens        = 100;
-    $itensPorPagina    = $_ENV['APP_ITENS_POR_PAGINA'];
-    $itensVisualizados = 10;
-    $obPaginacao       = new Paginacao($totalItens, $itensPorPagina, $_GET['pagina'] ?? 0);
-    
-    // SALVA A PAGINAÇÃO
-    $this->paginacao = [
-      'total'          => $totalItens,
-      'itensPorPagina' => $itensPorPagina,
-      'itensVisiveis'  => $itensVisualizados,
-      'paginacao'      => $obPaginacao->generate()
-    ];
-
-    return $this;
-  }
-
   /**
    * Método responsável por realizar a chamada do conteúdo da página
    * @return string
    */
   public function consultar() {
-    $this->configure()->gerarPaginacao();
+    $this->configure();
 
     // MONTA OS ARQUIVO DE HANDLER
     $this->atualizarHandlers();
