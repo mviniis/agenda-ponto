@@ -4,12 +4,11 @@ namespace App\Http\Controllers\App\Inicio;
 
 use \Illuminate\Http\Request;
 use \App\Http\Controllers\Framework\Base;
-use Illuminate\Http\JsonResponse;
 
 /**
- * class Get
+ * class Post
  * 
- * Classe responsável por controlar as requisições GET a página de início do site
+ * Classe responsável por controlar as requisições POST da página de início do site (login do usuário)
  * 
  * @author Matheus Vinicius
  */
