@@ -16,3 +16,6 @@
 
   <button type="submit">Enviar</button>
 </form>
+
+<a href="{{ $URL_APP }}/cadastro">Cadastre-se</a>
+<a href="{{ $URL_APP }}/recuperar-senha">Esqueceu sua senha? Clique aqui!</a>
