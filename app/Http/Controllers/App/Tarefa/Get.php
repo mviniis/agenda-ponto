@@ -54,7 +54,8 @@ class Get extends Base {
           $this->redirecionar('cadastrar-tarefa');
         }
 
-        $this->addConteudo('uriFormulario', "editar-tarefa/{$idTarefa}");
+        $this->addConteudo('uriFormulario', "editar-tarefa");
+        $this->addConteudo('idTarefa', $idTarefa);
       break;
 
       default:
