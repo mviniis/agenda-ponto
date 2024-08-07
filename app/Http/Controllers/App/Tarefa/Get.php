@@ -20,30 +20,6 @@ class Get extends Base {
    */
   private string $nameFileLayout;
 
-  public function configure(): self {
-    // INSTÂNCIA DOS ARQUIVOS DE ESTILO
-    $obHandlerCSS = new HandlerCss;
-    $obHandlerJS  = new HandlerJs;
-
-    // DEFINE O NOME DO ARQUIVO DE HANDLER
-    $obHandlerCSS->defineHandlerFileName('handler-criar-tarefa');
-    $obHandlerJS->defineHandlerFileName('handler-criar-tarefa');
-
-    // CONFIGURAÇÃO DOS ARQUIVOS
-    $obHandlerCSS->setFilesAndFolders([
-      'geral', 'botstrap'
-    ]);
-    $obHandlerJS->setFilesAndFolders([
-      'geral', 'botstrap'
-    ]);
-
-    // DEFINIÇÃO DOS OBJETOS
-    $this->handlerCSS = $obHandlerCSS;
-    $this->handlerJS  = $obHandlerJS;
-
-    return $this;
-  }
-
   /**
    * Método responsável por realizar o redirecionamento de links
    * @param  string       $uri       URI de redirecionamento
@@ -65,6 +41,8 @@ class Get extends Base {
       case 'web.ver.tarefa':
         $this->nameFileLayout = 'criar-tarefa';
         if(!is_null($idTarefa) || is_numeric($idTarefa)) $this->redirecionar("editar-tarefa/{$idTarefa}");
+
+        $this->addConteudo('uriFormulario', "cadastrar-tarefa");
       break;
 
       case 'web.ver.tarefa.detalhe':
@@ -75,12 +53,38 @@ class Get extends Base {
         if(!is_numeric((int) $idTarefa) || $idTarefa <= 0 || !filter_var($idTarefa, FILTER_VALIDATE_INT)) {
           $this->redirecionar('cadastrar-tarefa');
         }
+
+        $this->addConteudo('uriFormulario', "editar-tarefa/{$idTarefa}");
       break;
 
       default:
         $this->redirecionar();
       break;
     }
+
+    return $this;
+  }
+
+  public function configure(): self {
+    // INSTÂNCIA DOS ARQUIVOS DE ESTILO
+    $obHandlerCSS = new HandlerCss;
+    $obHandlerJS  = new HandlerJs;
+
+    // DEFINE O NOME DO ARQUIVO DE HANDLER
+    $obHandlerCSS->defineHandlerFileName('handler-criar-tarefa');
+    $obHandlerJS->defineHandlerFileName('handler-criar-tarefa');
+
+    // CONFIGURAÇÃO DOS ARQUIVOS
+    $obHandlerCSS->setFilesAndFolders([
+      'geral', 'botstrap'
+    ]);
+    $obHandlerJS->setFilesAndFolders([
+      'geral', 'botstrap'
+    ]);
+
+    // DEFINIÇÃO DOS OBJETOS
+    $this->handlerCSS = $obHandlerCSS;
+    $this->handlerJS  = $obHandlerJS;
 
     return $this;
   }
