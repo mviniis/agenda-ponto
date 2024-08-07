@@ -27,11 +27,10 @@ class Post extends Base {
 
   /**
    * Método responsável por 
-   * @param  Request      $request       Dados da requisição
-   * @param  string       $idTarefa      ID da tarefa que está sendo criada ou atualizada
+   * @param  Request      $request      Dados da requisição
    * @return self
    */
-  private function validarAcesso(Request $request, $idTarefa): self {
+  private function validarAcesso(Request $request): self {
     $this->status = true;
 
     switch($request->route()->getName()) {
@@ -61,8 +60,8 @@ class Post extends Base {
    * @param  Request      $request      Dados da requisição
    * @return string
    */
-  public function cadastrarAtualizarTarefa(Request $request, $id = null) {
-    $this->validarAcesso($request, $id);
+  public function cadastrarAtualizarTarefa(Request $request) {
+    $this->validarAcesso($request);
 
     return response()->json([
       'status'   => $this->status,

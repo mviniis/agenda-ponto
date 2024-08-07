@@ -8,7 +8,7 @@ use \App\Http\Controllers\Framework\Base;
 /**
  * class Delete
  * 
- * Classe responsável por controlar as requisições POST da página de cadastro ou atualização de uma tarefa
+ * Classe responsável por controlar as requisições DELETE de uma tarefa
  * 
  * @author Matheus Vinicius
  */
@@ -18,7 +18,7 @@ class Delete extends Base {
   }
 
   /**
-   * Método responsável por realizar a validação da requisição de login
+   * Método responsável por realizar a validação da requisição de remoção de uma tarefa
    * @param  Request      $request      Dados da requisição
    * @return string
    */

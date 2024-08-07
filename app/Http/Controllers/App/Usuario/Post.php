@@ -18,11 +18,11 @@ class Post extends Base {
   }
 
   /**
-   * Método responsável por realizar a validação da requisição de login
+   * Método responsável por realizar a validação da requisição de atualização do perfil de usuário
    * @param  Request      $request      Dados da requisição
    * @return string
    */
-  public function atualizar(Request $request, $id = null) {
+  public function atualizar(Request $request) {
     return response()->json([
       'status'   => true,
       'mensagem' => 'Perfil atualizado com sucesso!'

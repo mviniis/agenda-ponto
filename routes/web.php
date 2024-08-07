@@ -57,7 +57,7 @@ Route::post('/editar-tarefa', [
   \App\Http\Controllers\App\Tarefa\Post::class, 'cadastrarAtualizarTarefa'
 ])->name('request.tarefa.detalhe');
 
-Route::post('/remover-tarefa', [
+Route::delete('/remover-tarefa', [
   \App\Http\Controllers\App\Tarefa\Delete::class, 'remover'
 ])->name('request.tarefa.detalhe.remocao');
 

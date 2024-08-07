@@ -92,6 +92,8 @@ class Get extends Base {
 
   /**
    * Método responsável por realizar a chamada do conteúdo da página
+   * @param  Request       $request       Dados da requisição
+   * @param  string        $id            ID da tarefa acessada
    * @return string
    */
   public function consultar(Request $request, $id = null) {
