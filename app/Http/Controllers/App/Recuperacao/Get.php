@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\App\Inicio;
+namespace App\Http\Controllers\App\Recuperacao;
 
 use \App\Http\Controllers\Framework\Base;
 use \App\Models\Packages\Sistema\Handler\{HandlerCss, HandlerJs};
@@ -8,7 +8,7 @@ use \App\Models\Packages\Sistema\Handler\{HandlerCss, HandlerJs};
 /**
  * class Get
  * 
- * Classe responsável por controlar as requisições GET a página de início do site
+ * Classe responsável por controlar as requisições GET a página de recuperação de senha de usuário
  * 
  * @author Matheus Vinicius
  */
@@ -19,8 +19,8 @@ class Get extends Base {
     $obHandlerJS  = new HandlerJs;
 
     // DEFINE O NOME DO ARQUIVO DE HANDLER
-    $obHandlerCSS->defineHandlerFileName('handler-inicio');
-    $obHandlerJS->defineHandlerFileName('handler-inicio');
+    $obHandlerCSS->defineHandlerFileName('handler-recuperacao');
+    $obHandlerJS->defineHandlerFileName('handler-recuperacao');
 
     // CONFIGURAÇÃO DOS ARQUIVOS
     $obHandlerCSS->setFilesAndFolders([
@@ -47,6 +47,6 @@ class Get extends Base {
     // MONTA OS ARQUIVO DE HANDLER
     $this->atualizarHandlers();
 
-    return $this->getConteudo('inicio');
+    return $this->getConteudo('recuperacao');
   }
 }
