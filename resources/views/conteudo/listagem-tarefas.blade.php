@@ -8,7 +8,7 @@
     <div class="row">
       <span>Tarefa do ID {{ $i + 1 }}</span>
       <a href="{{ $URL_APP }}/editar-tarefa/{{ $i + 1 }}">Editar</a>
-      <a href="{{ $URL_APP }}/remover-tarefa/{{ $i + 1 }}">Remover</a>
+      <a href="#">Remover</a>
     </div>
   @endfor
 </div>
