@@ -33,6 +33,10 @@ Route::get('/recuperar-senha', [
   \App\Http\Controllers\App\Recuperacao\Get::class, 'consultar'
 ])->name('web.ver.recuperacao');
 
+Route::post('/recuperar-senha', [
+  \App\Http\Controllers\App\Recuperacao\Post::class, 'recuperarSenha'
+])->name('request.recuperacao');
+
 Route::get('/listagem-tarefas', [
   \App\Http\Controllers\App\Listagem\Get::class, 'consultar'
 ])->name('web.ver.listagem');
