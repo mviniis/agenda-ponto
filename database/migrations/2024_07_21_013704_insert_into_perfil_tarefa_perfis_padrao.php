@@ -1,7 +1,7 @@
 <?php
 
 use \Illuminate\Database\Migrations\Migration;
-use \App\Models\Packages\PerfilTarefa\Actions\PerfilTarefaAction;
+use \App\Models\Packages\App\PerfilTarefa\Actions\PerfilTarefaAction;
 use \Mviniis\ConnectionDatabase\SQL\Parts\{SQLValues, SQLValuesGroup};
 
 return new class extends Migration
