@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Poppins, Bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ff8a3d;
+}
+
+.containe {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.lado-esquerdo {
+    background-color: #ff8a3d;
+    color: white;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.lado-esquerdo .logo img {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.lado-direito {
+    width: 50%;
+    background-color: white;
+    border-top-left-radius: 5%;
+    border-bottom-left-radius: 5%;
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.caixa-de-login {
+    width: 100%;
+    background-color: #fff;
+    padding: 40px;
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.caixa-de-login h2 {
+    margin-bottom: 20px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#floatingPassword {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+#floating1 {    
+    border: 2px solid #737373;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box; 
+}
+.form-floating label{
+    color:#737373;
+    font-size: 14px;
+}
+.esqueceu-senha {
+    text-align: left;
+    margin-bottom: 6%;
+    margin-left: 2%;
+    font-size: 1vw;
+    margin-top: 2%;
+}
+
+.esqueceu-senha a {
+    color: #ff8a3d;
+    text-decoration: none;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff8a3d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #e67b2d;
+}
+
+.criar-conta {
+    margin-top: 20px;
+    font-size: 1vw;
+    text-align: center;
+}
+
+.criar-conta a {
+    color: #ff8a3d;
+    text-decoration: none;
+}
+
+.criar-conta a:hover {
+    text-decoration: underline;
+}
