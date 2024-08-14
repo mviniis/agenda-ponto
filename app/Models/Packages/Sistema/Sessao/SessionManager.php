@@ -53,13 +53,9 @@ class SessionManager {
    * @param  array      $hash       Hash da sessão onde será consultado o valor
    * @return mixed
    */
-  public function get(array $hash): mixed {
-    if(empty($hash)) return null;
-
+  public function get(array $hash = []): mixed {
     $hashItem = $this->adicionarHashComplementar($hash);
-    $valor    = $this->buscarValorNaSessao($hashItem, $_SESSION);
-
-    return $valor;
+    return $this->buscarValorNaSessao($hashItem, $_SESSION);
   }
 
   /**
@@ -67,9 +63,7 @@ class SessionManager {
    * @param  array      $hash       Hash do índice da sessão que será removido
    * @return bool
    */
-  public function remove(array $hash): bool {
-    if(empty($hash)) return false;
-
+  public function remove(array $hash = []): bool {
     $hashItem = $this->adicionarHashComplementar($hash);
     return $this->removerValorDaSessao($hashItem, $_SESSION);
   }
