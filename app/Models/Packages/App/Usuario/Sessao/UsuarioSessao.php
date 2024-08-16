@@ -2,7 +2,9 @@
 
 namespace App\Models\Packages\App\Usuario\Sessao;
 
+use \App\Models\DTOs\UsuarioDTO;
 use \App\Models\Packages\Sistema\Sessao\SessionManager;
+use \App\Models\Packages\App\Pessoa\Actions\{PessoaAction, PessoaFisicaAction, PessoaJuridicaAction};
 
 /**
  * class UsuarioSessao
@@ -50,6 +52,79 @@ class UsuarioSessao {
   public function usuarioEstaLogado(): bool {
     $dados = $this->obSession->get(['login', 'id']);
     return !is_null($dados) && !empty($dados);
+  }
+
+  /**
+   * Métod responsável por retornar o ID do usuário logado
+   * @return integer
+   */
+  public function getIdUsuarioLogado(): int {
+    return $this->obSession->get(['login', 'id']) ?? 0;
+  }
+
+  /**
+   * Métod responsável por retornar o tipo da pessoa do usuário logado
+   * @return integer
+   */
+  public function getTipoPessoaUsuarioLogado(): string {
+    return $this->obSession->get(['dadosPessoais', 'tipoPessoa']) ?? 'física';
+  }
+
+  /**
+   * Método responsável por retornar os dados pessois do usuário logado
+   * @return array
+   */
+  public function getDadosPessoais(): array {
+    return $this->obSession->get(['dadosPessoais']) ?? [];
+  }
+
+  /**
+   * Método responsável por realizar o login de um usuário
+   * @param  UsuarioDTO       $obUsuario       Dados do usuário válido
+   * @return void
+   */
+  public function finalizarLogin(UsuarioDTO $obUsuario): void {
+    $dadosPessoais = [];
+    $dadosLogin    = [
+      'id'       => (int) $obUsuario->id,
+      'idPessoa' => (int) $obUsuario->idPessoa,
+      'email'    => (string) $obUsuario->email
+    ];
+
+    // BUSCA OS DADOS DA PESSOA
+    $obEntityPessoa = (new PessoaAction)->getIdTipoPessoa((int) $obUsuario->idPessoa);
+    if(!$obEntityPessoa->getSuccess()) {
+      throw new \Exception('Não foi possível realizar o login do usuário. Entre em contado com nosso suporte.', 500);
+    }
+
+    // BUSCA OS DADOS PESSOAIS DO USUÁRIO
+    $tipoPessoa = is_numeric($obEntityPessoa->getData()->idPessoaFisica) ? 'fisica': 'juridica';
+    switch($tipoPessoa) {
+      case 'fisica':
+        $obPessoaFisica = (new PessoaFisicaAction)->getPessoaFisicaPorIdPessoa($obUsuario->idPessoa)->getData();
+        $dadosPessoais  = [
+          'id'        => $obPessoaFisica->id,
+          'cpf'       => $obPessoaFisica->cpf,
+          'nome'      => $obPessoaFisica->nome,
+          'sobrenome' => $obPessoaFisica->sobrenome,
+        ];
+        break;
+      
+      case 'juridica':
+        $obPessoaFisica = (new PessoaJuridicaAction)->getPessoaJuridicaPorIdPessoa($obUsuario->idPessoa)->getData();
+        $dadosPessoais  = [
+          'id'           => $obPessoaFisica->id,
+          'cnpj'         => $obPessoaFisica->cnpj,
+          'razaoSocial'  => $obPessoaFisica->razaoSocial,
+          'nomeFantasia' => $obPessoaFisica->nomeFantasia,
+        ];
+        break;
+    }
+
+    // SALVA OS DADOS NA SESSÃO
+    $dadosPessoais['tipoPessoa'] = $tipoPessoa;
+    $this->obSession->set(['login'], $dadosLogin);
+    $this->obSession->set(['dadosPessoais'], $dadosPessoais);
   }
 
   /**

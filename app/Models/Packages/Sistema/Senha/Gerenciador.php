@@ -3,7 +3,6 @@
 namespace App\Models\Packages\Sistema\Senha;
 
 use \Exception;
-use \Firebase\JWT\{JWT, Key};
 
 /**
  * class Gerenciador
@@ -14,13 +13,7 @@ use \Firebase\JWT\{JWT, Key};
  */
 class Gerenciador {
   /**
-   * Define o tipo do algorítimo da geração do JWT
-   * @var string
-   */
-  private const ALGORITOMO_JWT = 'HS256';
-  
-  /**
-   * Define a chave secreta para assinar e verificar o JWT
+   * Chave secreta para ser utilizada como "salt".
    * @var string
    */
   private const CHAVE_SECRETA = 'vX8kkqQAcgsonyXvGp6tVUVex3v4YJz5';
@@ -44,34 +37,7 @@ class Gerenciador {
    */
   public static function criptografarSenha(string $senha): string {
     self::validarParametrosSenha($senha);
-
-    // CRIA UM PAYLOAD COM A SENHA CRIPTOGRAFADA USANDO A PASSWORD HASH
-    $payload = [
-      'iat'          => time(),
-      'passwordHash' => password_hash($senha, PASSWORD_DEFAULT),
-    ];
-
-    // REALIZA A GERAÇÃO DO TOKEN
-    return JWT::encode($payload, self::CHAVE_SECRETA, self::ALGORITOMO_JWT);
-  }
-
-  /**
-   * Método responsável por validar a senha
-   * @param  string       $senha          Senha a ser verificada
-   * @param  string       $jwtToken       Token JWT contendo o hash armazenado
-   * @return bool
-   */
-  public static function validarSenha(string $senha, string $jwtToken): bool {
-    try {
-      // DECODIFICA O TOKEN
-      $decoded      = JWT::decode($jwtToken, new Key(self::CHAVE_SECRETA, self::ALGORITOMO_JWT));
-      $passwordHash = $decoded->passwordHash;
-
-      // VERIFICA SE A SENHA CORRESPONSE A HASH ARMAZENADA
-      return password_verify($senha, $passwordHash);
-    } catch (Exception $e) {
-      return false;
-    }
+    return hash('sha256', self::CHAVE_SECRETA . $senha);
   }
 
   /**
@@ -79,22 +45,23 @@ class Gerenciador {
    * @param  string       $senha       Senha que será verificada
    * @return void
    */
-  private static function validarParametrosSenha(string $senha): void {
+  public static function validarParametrosSenha(string $senha): void {
     $quantidadeNumeros = self::QUANTIDADE_MINIMA_NUMEROS;
     $quantidadeLetras  = self::QUANTIDADE_MINIMA_LETRAS;
+    $codigoHttpErro    = 406;
 
     if (strlen($senha) < 5) {
-      throw new Exception("A senha deve ter pelo menos 5 caracteres.");
+      throw new Exception("A senha deve ter pelo menos 5 caracteres.", $codigoHttpErro);
     }
 
     if (preg_match_all('/\d/', $senha) < $quantidadeNumeros) {
-      throw new Exception("A senha deve ter pelo menos {$quantidadeNumeros} números.");
+      throw new Exception("A senha deve ter pelo menos {$quantidadeNumeros} números.", $codigoHttpErro);
     }
 
     if (preg_match_all('/[a-zA-Z]/', $senha) < $quantidadeLetras) {
-      throw new Exception("A senha deve ter pelo menos {$quantidadeLetras} letras.");
+      throw new Exception("A senha deve ter pelo menos {$quantidadeLetras} letras.", $codigoHttpErro);
     }
 
-    if (preg_match('/\s/', $senha)) throw new Exception("A senha não deve conter espaços.");
+    if (preg_match('/\s/', $senha)) throw new Exception("A senha não deve conter espaços.", $codigoHttpErro);
   }
 }

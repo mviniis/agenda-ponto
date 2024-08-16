@@ -50,6 +50,10 @@ Route::middleware([])->group(function() {
   Route::post('/', [
     \App\Http\Controllers\App\Inicio\Post::class, 'efetuarLogin'
   ])->name('request.logar');
+
+  Route::post('/logout', [
+    \App\Http\Controllers\App\Inicio\Post::class, 'efetuarLogout'
+  ])->name('request.deslogar');
   
   Route::post('/cadastro', [
     \App\Http\Controllers\App\Cadastro\Post::class, 'cadastrarUsuario'
