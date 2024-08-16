@@ -77,7 +77,7 @@ class Get extends Base {
 
     // CONFIGURAÇÃO DOS ARQUIVOS
     $obHandlerCSS->setFilesAndFolders([
-      'geral', 'botstrap', 'tarefas'
+      'geral', 'botstrap', 'tarefas', 'cadastro-tarefa'
     ]);
     $obHandlerJS->setFilesAndFolders([
       'geral', 'botstrap'

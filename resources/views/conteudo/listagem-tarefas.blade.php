@@ -1,14 +1,30 @@
-<h1>Listagem de tarefas</h1>
+<a href="{{ $URL_APP }}/cadastrar-tarefa" class="conteudo_cadastrartarefa position-fixed bottom-0 end-0 p-4" data-placement="top" title="Cadastrar tarefa">
+  <img src="{{ $URL_IMG }}/geral/icone_cadastrar_tarefa.png" style="width: 60px; height: 60px;" alt="Cadastrar Tarefa Icone" class="w">
+</a>
 
-<a href="{{ $URL_APP }}/cadastrar-tarefa">Cadastrar tarefa</a>
-<a href="{{ $URL_APP }}/editar-perfil">Editar perfil</a>
 
-<div class="container my-5">
+<div class="container my-5 conteudo_containertarefa">
+  <div class="conteudo_containertarefa_linha_cabecalho">
+        <h6>Nome</h6>
+        <h6>Responsável</h6>
+        <h6>Data de Vencimento</h6>
+        <h6>Prioridade</h6>
+        <div class="conteudo_containertarefa_cabecalho_acoes">
+          <h6>Ações</h6>
+        </div>
+  </div>
+
   @for ($i = 0; $i < 10; $i++)
-    <div class="row">
-      <span>Tarefa do ID {{ $i + 1 }}</span>
-      <a href="{{ $URL_APP }}/editar-tarefa/{{ $i + 1 }}">Editar</a>
-      <a href="#">Remover</a>
+    <div class="conteudo_containertarefa_linha">
+      <span>Tarefa {{ $i + 1 }}</span>
+      <h6>teste@teste.com.br</h6>
+      <h6>15/08/2024</h6>
+      <h6>Normal</h6>
+      <div class="conteudo_containertarefa_linha_acoes">
+        <a href="{{ $URL_APP }}/editar-tarefa/{{ $i + 1 }}" class="conteudo_containertarefa_linha_acoes_botoes">Editar</a>
+        <a href="#" class="conteudo_containertarefa_linha_acoes_botoes">Remover</a>
+        <a href="#" class="btn btn-dark">Concluir</a>
+      </div>
     </div>
   @endfor
 </div>

@@ -1,0 +1,75 @@
+p {
+    margin: 0;
+}
+
+
+/* Conteúdo */
+.conteudo_cabecalho_cabecalho {
+    display: flex;
+    flex-direction: row;
+}
+
+.conteudo_cabecalho {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: calc(100% - 40px);
+}
+
+/* Formulário */
+.conteudo_form_container {
+    margin: 2rem 0;
+    width: calc(100% - 40px);
+}
+
+.conteudo_form_campo {
+    width: 100%;
+    padding: 10px;
+    border: 3px solid #797979;
+    border-radius: 10px;
+}
+
+.check_baixa {
+    background-color: #ffb73b;
+}
+
+.check_baixa:checked {
+    background-color: rgb(0, 88, 88);
+}
+
+.check_media {
+    background-color: #ff914d;
+}
+
+.check_media:checked {
+    background-color: rgb(0, 88, 88);
+}
+
+.check_alta {
+    background-color: #ed752a;
+}
+
+.check_alta:checked {
+    background-color: rgb(0, 88, 88);
+}
+
+form textarea {
+    resize: none;
+    border: 3px solid #797979;
+    border-radius: 10px;
+}
+
+.btn_enviar_container {
+    display: flex;
+    justify-content: center;
+}
+
+.btn_enviar {
+    color: #FFF;
+    font-weight: 700;
+    font-size: 1.5rem;
+    padding: 10px 3rem;
+    background-color: #ed752a;
+    border-radius: 10px;
+    border: none;
+}

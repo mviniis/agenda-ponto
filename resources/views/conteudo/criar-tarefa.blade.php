@@ -1,40 +1,43 @@
-<h1>Cadastro de uma tarefa</h1>
-
-<a href="{{ $URL_APP }}/listagem-tarefas">Voltar</a>
-
-<form action="{{ $URL_APP }}/{{ $uriFormulario }}" method="post">
-  @csrf
-
-  <div>
-    <label for="email">Tĩtulo</label>
-    <input type="email" name="email" id="email">
-  </div>
-
-  <div>
-    <label for="nome">Data de vencimento</label>
-    <input type="date" name="nome" id="nome">
-  </div>
-
-  <label for="senha">Prioridade</label>
-  <div id="prioridades">
-    <div>
-      <input type="radio" id="baixa" name="prioridade" value="baixa">
-      <label for="baixa">Baixa</label><br>
+<div class="container my-5">
+  <div class="conteudo_cabecalho_cabecalho">
+    <div class="conteudo_cabecalho">
+      <h1><strong>Criar tarefa</strong></h1>
     </div>
-    <div>
-      <input type="radio" id="media" name="prioridade" value="media">
-      <label for="media">Média</label><br>
-    </div>
-    <div>
-      <input type="radio" id="alta" name="prioridade" value="alta">
-      <label for="alta">Alta</label>
-    </div>
+    <a href="{{ $URL_APP }}/listagem-tarefas" data-placement="top" title="Voltar"><img src="{{ $URL_IMG }}/geral/fechar.png" style="width: 40px; height: 40px;" alt="Fechar Icone" class="w"></a>
   </div>
 
-  <label for="descricao">Descrição</label>
-  <div>
-    <textarea name="descricao" id="descricao"></textarea>
-  </div>
+  <form action="{{ $URL_APP }}/cadastrarAtualizarTarefa" method="post">
+    @csrf
 
-  <button type="submit">Enviar</button>
-</form>
+    <div class="conteudo_form_container">
+      <p>Nome da tarefa</p>
+      <input type="text" name="nomeTarefa" id="nomeTarefa" title="nomeTarefa" class="conteudo_form_campo" placeholder="Nome da tarefa" autocomplete="off" required>
+    </div>
+
+    <div class="conteudo_form_container">
+      <p>Data de Vencimento</p>
+      <input type="date" name="dataVencimento" id="dataVencimento" min="16/08/2024" class="conteudo_form_campo" autocomplete="off" required>
+    </div>
+
+    <div class="conteudo_form_container">
+      <p>Prioridade</p>
+      <input type="radio" class="btn-check" name="definirPrioridade" id="baixa" autocomplete="off">
+      <label class="btn check_baixa" for="baixa">Baixa</label>
+
+      <input type="radio" class="btn-check" name="definirPrioridade" id="media" autocomplete="off">
+      <label class="btn check_media" for="media">Média</label>
+
+      <input type="radio" class="btn-check" name="definirPrioridade" id="alta" autocomplete="off">
+      <label class="btn check_alta" for="alta">Alta</label>
+    </div>
+
+    <div class="conteudo_form_container">
+      <p>Descrição</p>
+      <textarea placeholder="Escreva aqui..." rows="5" cols="131" name="descricao"></textarea>
+    </div>
+
+    <div class="conteudo_form_container btn_enviar_container">
+      <button type="submit" class="btn_enviar">CRIAR</button>
+    </div>
+  </form>
+</div>
