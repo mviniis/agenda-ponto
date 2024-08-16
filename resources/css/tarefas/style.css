@@ -1,0 +1,10 @@
+#prioridades div {
+    display: inline-block;
+}
+
+textarea {
+    width: 300px;
+    height: 150px; 
+    resize: none;
+    margin-left: 10px;
+}
