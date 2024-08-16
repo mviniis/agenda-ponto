@@ -27,7 +27,7 @@ class Get extends Base {
       'geral', 'inicio'
     ]);
     $obHandlerJS->setFilesAndFolders([
-      'geral'
+      'geral', 'inicio'
     ]);
 
     // DEFINIÇÃO DOS OBJETOS

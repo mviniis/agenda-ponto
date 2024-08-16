@@ -121,3 +121,12 @@ button[type="submit"]:hover {
 .criar-conta a:hover {
     text-decoration: underline;
 }
+
+#formulario-de-login > button > .spinner-border {
+    width: 15px;
+    height: 15px;
+    margin-left: 3px;
+}
+body .lado-direito > .caixa-de-login > .alert {
+    font-size: 1.3vw;
+}
