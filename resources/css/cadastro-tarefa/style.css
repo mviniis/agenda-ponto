@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Cabecalho */
+
+body {
+    font-family: "Poppins", sans-serif;
+}
+
+p {
+    margin: 0;
+}
+
+.cabecalho {
+    background-color: #ff914d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+}
+
+.cabecalho_conteudo {
+    width: 85%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cabecalho_conteudo_sair {
+    text-decoration: none;
+    color: #FFF;
+    font-size: 1.3rem;
+}
+
+.cabecalho_conteudo_textarea {
+    background-color: #ff914d;
+    border: 2px solid #FFF;
+    border-radius: 16px;
+    height: 50%;
+    color: #FFF;
+}
+
+.cabecalho_conteudo_perfil_escritos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cabecalho_conteudo_perfil {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cabecalho_conteudo_perfil_texto {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #FFF;
+}
+
+.cabecalho_conteudo_perfil_nomeusuario {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #FFF;
+}
+
+.cabecalho_pesquisa {
+    display: flex;
+    flex-direction: row;
+    justify-content: baseline;
+    gap: 5px;
+}
+
+
+/* Conteúdo */
+.conteudo_cabecalho_cabecalho {
+    display: flex;
+    flex-direction: row;
+}
+
+.conteudo_cabecalho {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: calc(100% - 40px);
+}
+
+/* Formulário */
+.conteudo_form_container {
+    margin: 2rem 0;
+    width: calc(100% - 40px);
+}
+
+.conteudo_form_campo {
+    width: 100%;
+    padding: 10px;
+    border: 3px solid #797979;
+    border-radius: 10px;
+}
+
+.check_baixa {
+    background-color: #ffb73b;
+}
+
+.check_baixa:checked {
+    background-color: rgb(0, 88, 88);
+}
+
+.check_media {
+    background-color: #ff914d;
+}
+
+.check_media:checked {
+    background-color: rgb(0, 88, 88);
+}
+
+.check_alta {
+    background-color: #ed752a;
+}
+
+.check_alta:checked {
+    background-color: rgb(0, 88, 88);
+}
+
+form textarea {
+    resize: none;
+    border: 3px solid #797979;
+    border-radius: 10px;
+}
+
+.btn_enviar_container {
+    display: flex;
+    justify-content: center;
+}
+
+.btn_enviar {
+    color: #FFF;
+    font-weight: 700;
+    font-size: 1.5rem;
+    padding: 10px 3rem;
+    background-color: #ed752a;
+    border-radius: 10px;
+    border: none;
+}
