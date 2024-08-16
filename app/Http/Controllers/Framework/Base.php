@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Framework;
 
+use App\Models\Packages\App\Usuario\Sessao\UsuarioSessao;
 use \stdClass;
 use \App\Models\Packages\Sistema\Handler\{HandlerCss, HandlerJs};
 
@@ -52,6 +53,12 @@ abstract class Base extends Controller implements BaseInterface {
     $this->addConteudo('URL_APP',    $_ENV['APP_URL']);
     $this->addConteudo('URL_IMG',    "{$_ENV['APP_URL']}/resources/img");
     $this->addConteudo('TITLE_SITE', $_ENV['APP_TITLE_SITE']);
+
+    // ADICIONA OS DADOS DO USUÁRIO LOGADO
+    $obUsuarioSession = new UsuarioSessao;
+    if($obUsuarioSession->usuarioEstaLogado()) {
+      $this->addConteudo('usuarioLogado', $obUsuarioSession->getDadosPessoais());
+    }
   }
   
   /**

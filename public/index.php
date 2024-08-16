@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Contracts\Http\Kernel;
-use Illuminate\Http\Request;
+use \Illuminate\Http\Request;
+use \Illuminate\Contracts\Http\Kernel;
 
 define('LARAVEL_START', microtime(true));
 
@@ -45,6 +45,9 @@ require __DIR__.'/../vendor/autoload.php';
 */
 
 $app = require_once __DIR__.'/../bootstrap/app.php';
+
+// INICIA A SESSÃO
+\App\Models\Packages\Sistema\Sessao\SessionManager::init();
 
 $kernel = $app->make(Kernel::class);
 
