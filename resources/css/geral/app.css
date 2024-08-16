@@ -3,7 +3,7 @@
 body {
   position: relative !important;
   height: 100vh;
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif !important;
 }
 
 body > .box-debug {
@@ -14,4 +14,68 @@ body > .box-debug {
 body > .box-debug > #conteudoBoxDebug {
   max-height: 465px;
   overflow: auto;
+}
+
+.cabecalho {
+  background-color: #ff914d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10vh;
+}
+
+.cabecalho_conteudo {
+  width: 85%;
+  height: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cabecalho_conteudo_sair {
+  text-decoration: none !important;
+  color: #FFF;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.cabecalho_conteudo_textarea {
+  background-color: #ff914d;
+  border: 2px solid #FFF;
+  border-radius: 16px;
+  height: 50%;
+  color: #FFF;
+}
+
+.cabecalho_conteudo_perfil_escritos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cabecalho_conteudo_perfil {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cabecalho_conteudo_perfil_texto {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #FFF;
+}
+
+.cabecalho_conteudo_perfil_nomeusuario {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #FFF;
+}
+
+.cabecalho_pesquisa {
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
+  gap: 5px;
 }
