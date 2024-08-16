@@ -1,7 +1,8 @@
 <div class="cabecalho">
   <div class="cabecalho_conteudo">
     <a href="#" class="cabecalho_conteudo_sair"><strong>Sair</strong></a>
-    <div>
+    <div class="cabecalho_pesquisa">
+      <img src="{{ $URL_IMG }}/geral/pesquisa.png" style="width: 30px; height: 30px;" alt="AgendaPonto Logo" class="w">
       <textarea rows="1" cols="35" class="cabecalho_conteudo_textarea"></textarea>
     </div>
     <div class="cabecalho_conteudo_perfil">
