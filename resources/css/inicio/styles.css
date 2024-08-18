@@ -13,6 +13,10 @@ body {
     background-color: #ff8a3d;
 }
 
+p {
+    text-align: left;
+}
+
 .containe {
     display: flex;
     width: 100%;
@@ -68,17 +72,19 @@ body {
     margin-bottom: 15px;
 }
 
-#floating1 {    
+.form-control {
     border: 2px solid #737373;
     border-radius: 5px;
     font-size: 16px;
     outline: none;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
-.form-floating label{
-    color:#737373;
+
+.form-floating label {
+    color: #737373;
     font-size: 14px;
 }
+
 .esqueceu-senha {
     text-align: left;
     margin-bottom: 6%;
@@ -121,3 +127,66 @@ button[type="submit"]:hover {
 .criar-conta a:hover {
     text-decoration: underline;
 }
+
+.form-floating {
+    position: relative;
+}
+
+.form-floating input[type="password"] {
+    padding-right: 40px;
+    /* Espaço para o ícone */
+}
+
+.form-floating .position-relative {
+    position: relative;
+}
+
+.form-floating img {
+    height: 20px;
+    width: auto;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 4px;
+    /* Alinha o checkbox e o label à esquerda */
+}
+
+.form-check-label {
+    margin-top: 3px;
+    margin-left: 4px;
+    /* Espaço entre o checkbox e o label */
+}
+.custom-checkbox {
+    appearance: none;
+    -webkit-appearance: none; /* Para navegadores baseados em WebKit */
+    -moz-appearance: none; /* Para navegadores baseados em Gecko */
+    width: 20px; /* Largura do checkbox */
+    height: 20px; /* Altura do checkbox */
+    background-color: #ccc; /* Aumenta a espessura da borda */
+    border-radius: 4px; /* Bordas arredondadas */
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .custom-checkbox:checked {
+    background-color: #ff8a3d; /* Cor de fundo ao marcar */
+  }
+  
+  .custom-checkbox:checked::after {
+    position: absolute;
+    top: 2px;
+    left: 6px;
+    width: 5px;
+    height: 10px;
+    transform: rotate(45deg);
+  }
+  .custom-checkbox:focus {
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+  }
+
+  

@@ -14,18 +14,22 @@
                     <input type="email" class="form-control" id="floating1" placeholder="name@example.com">
                     <label for="floating1">Usuário</label>
                 </div>
-                <div class="form-floating">
-                    <input type="password" class="form-control" id="floating1" placeholder="Password">
-                    <label for="floating1"><img src="{{ $URL_IMG }}/geral/cadeadosenha.svg" style="width: 20px; height: auto; padding-right: 5px;"
-                    alt="AgendaPonto Logo" class="w">Senha</label>
+                <div class="form-floating position-relative">
+                    <input type="password" class="form-control" id="password" placeholder="Password">
+                    <label for="password"><img src="{{ $URL_IMG }}/geral/cadeadosenha.svg"
+                            style="width: 20px; height: auto; padding-right: 5px;" alt="AgendaPonto Logo"
+                            class="w">Senha</label>
+                    <span onclick="togglePasswordVisibility()" style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
+                        <img id="toggleIcon" src="https://img.icons8.com/ios-glyphs/30/000000/visible.png" alt="Mostrar senha" />
+                    </span>
                 </div>
                 <div class="esqueceu-senha">
-                    <a href="#">Esqueceu a senha?</a>
+                    <a href="{{ $URL_APP }}/recuperar-senha">Esqueceu a senha?</a>
                 </div>
                 <button type="submit">ENTRAR</button>
             </form>
             <div class="criar-conta">
-                <p>Não tenho conta? <a href="#">Criar conta agora</a></p>
+                <p>Não tenho conta? <a href="{{ $URL_APP }}/cadastro">Criar conta agora</a></p>
             </div>
         </div>
     </div>
