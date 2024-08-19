@@ -68,3 +68,10 @@ Route::get('/editar-perfil', [
 Route::post('/editar-perfil', [
   \App\Http\Controllers\App\Usuario\Post::class, 'atualizar'
 ])->name('request.perfil');
+
+
+// ROTAS DE CONFIRMACAO
+
+Route::get('/senha-alterada', [
+  \App\Http\Controllers\App\PaginasConfirmacao\Get::class, 'consultarPagina'
+])->name('web.ver.senha.alterada');
