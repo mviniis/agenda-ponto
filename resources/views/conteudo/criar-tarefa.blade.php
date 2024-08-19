@@ -18,12 +18,12 @@
 </div>
 
 
-<div class="container my-5">
+<div class="container py-5 conteudo_form">
   <div class="conteudo_cabecalho_cabecalho">
     <div class="conteudo_cabecalho">
       <h1><strong>Criar tarefa</strong></h1>
     </div>
-    <a href="{{ $URL_APP }}/listagem-tarefas" data-placement="top" title="Voltar"><img src="{{ $URL_IMG }}/geral/fechar.png" style="width: 40px; height: 40px;" alt="Fechar Icone" class="w"></a>
+    <a href="{{ $URL_APP }}/listagem-tarefas" data-placement="top" title="Voltar"><img src="{{ $URL_IMG }}/geral/fechar.png" class="conteudo_sair" alt="Fechar Icone" class="w"></a>
   </div>
 
   <form action="{{ $URL_APP }}/cadastrarAtualizarTarefa" method="post">
@@ -32,11 +32,6 @@
     <div class="conteudo_form_container">
       <p>Nome da tarefa</p>
       <input type="text" name="nomeTarefa" id="nomeTarefa" title="nomeTarefa" class="conteudo_form_campo" placeholder="Nome da tarefa" autocomplete="off" required>
-    </div>
-
-    <div class="conteudo_form_container">
-      <p>Data de Vencimento</p>
-      <input type="date" name="dataVencimento" id="dataVencimento" min="16/08/2024" class="conteudo_form_campo" autocomplete="off" required>
     </div>
 
     <div class="conteudo_form_container">
@@ -53,7 +48,7 @@
 
     <div class="conteudo_form_container">
       <p>Descrição</p>
-      <textarea placeholder="Escreva aqui..." rows="5" cols="131" name="descricao"></textarea>
+      <input type="text" class="conteudo_form_campo_descricao" placeholder="Escreva aqui..." name="descricao"></input>
     </div>
 
     <div class="conteudo_form_container btn_enviar_container">
@@ -61,3 +56,4 @@
     </div>
   </form>
 </div>
+<div class="conteudo_footer"></div>

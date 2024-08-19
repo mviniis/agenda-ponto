@@ -35,6 +35,7 @@ body {
     border-radius: 16px;
     height: 50%;
     color: #FFF;
+    resize: none;
 }
 
 .cabecalho_conteudo_perfil_escritos {
@@ -80,6 +81,10 @@ body {
     gap: 1rem;
 }
 
+.conteudo_containertarefa_titulo_media {
+    display: none;
+}
+
 .conteudo_containertarefa_linha {
     border: 4px solid rgb(73, 73, 73);
     border-radius: 15px;
@@ -112,4 +117,42 @@ body {
 .conteudo_containertarefa_linha_acoes_botoes {
     color: #ff914d;
     font-weight: 600;
+}
+
+@media (max-width: 992px) { 
+
+    .cabecalho_pesquisa {
+        display: none;
+    }
+
+    .cabecalho_conteudo {
+        flex-direction: row-reverse;
+    }
+
+    .cabecalho_conteudo_perfil {
+        flex-direction: row-reverse;
+    }
+
+    .conteudo_containertarefa_titulo_media {
+        display: block;
+    }
+
+    .conteudo_containertarefa_linha_cabecalho {
+        display: none;
+    }
+
+    .conteudo_containertarefa_linha {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .conteudo_containertarefa_linha h6 {
+        margin: 0;
+    }
+
+    .conteudo_containertarefa_linha_acoes {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
 }
