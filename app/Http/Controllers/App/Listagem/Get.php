@@ -3,8 +3,15 @@
 namespace App\Http\Controllers\App\Listagem;
 
 use \App\Http\Controllers\Framework\Base;
+use App\Models\DTOs\TarefaUsuarioDTO;
+use App\Models\Packages\App\Tarefa\Actions\TarefaAction;
+use App\Models\Packages\App\Tarefa\Validates\Tarefa;
+use App\Models\Packages\App\TarefaUsuario\Actions\TarefaUsuarioAction;
+use App\Models\Packages\App\Usuario\Sessao\UsuarioSessao;
 use \App\Models\Packages\Sistema\Handler\{HandlerCss, HandlerJs};
 use \App\Models\Packages\Sistema\Paginacao\Paginacao;
+
+use function Psy\debug;
 
 /**
  * class Get
@@ -14,6 +21,9 @@ use \App\Models\Packages\Sistema\Paginacao\Paginacao;
  * @author Matheus Vinicius
  */
 class Get extends Base {
+
+  private $listaItens;
+
   public function configure(): self {
     // INSTÂNCIA DOS ARQUIVOS DE ESTILO
     $obHandlerCSS = new HandlerCss;
@@ -40,20 +50,30 @@ class Get extends Base {
 
   public function gerarPaginacao(): self {
     // GERA A PAGINAÇÃO
-    $totalItens        = 100;
+    $totalItens        = (new TarefaAction)->buscaTotalTarefasPorUsuario((new UsuarioSessao)->getIdUsuarioLogado());
     $itensPorPagina    = $_ENV['APP_ITENS_POR_PAGINA'];
-    $itensVisualizados = 10;
-    $obPaginacao       = new Paginacao($totalItens, $itensPorPagina, $_GET['pagina'] ?? 0);
-    
+    $itensVisualizados = 5;
+    $obPaginacao       = new Paginacao($totalItens, $itensPorPagina, $_GET['pagina'] ?? 0, '/listagem-tarefas');
     // SALVA A PAGINAÇÃO
     $this->paginacao = [
-      'total'          => $totalItens,
+      'total'          => (new TarefaAction)->buscaTotalTarefasPorUsuario((new UsuarioSessao)->getIdUsuarioLogado()),
       'itensPorPagina' => $itensPorPagina,
       'itensVisiveis'  => $itensVisualizados,
       'paginacao'      => $obPaginacao->generate()
     ];
 
     return $this;
+  }
+
+
+  public function buscarTarefasUsuario(){
+
+    $obTarefas = new Tarefa();
+    $tarefas = $obTarefas->getTarefas($_GET['pagina'] ?? 0);
+
+    
+    $this->addConteudo('tarefasUsuario', $tarefas);
+
   }
 
   /**
@@ -65,6 +85,8 @@ class Get extends Base {
 
     // MONTA OS ARQUIVO DE HANDLER
     $this->atualizarHandlers();
+
+    $this->buscarTarefasUsuario();
 
     return $this->getConteudo('listagem-tarefas');
   }

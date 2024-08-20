@@ -6,23 +6,23 @@
     <a href="{{ $URL_APP }}/listagem-tarefas" data-placement="top" title="Voltar"><img src="{{ $URL_IMG }}/geral/fechar.png" class="conteudo_sair" alt="Fechar Icone" class="w"></a>
   </div>
 
-  <form action="{{ $URL_APP }}/cadastrarAtualizarTarefa" method="post">
+  <form action="{{ $URL_APP }}/{{ $uriFormulario }}" method="post">
     @csrf
 
     <div class="conteudo_form_container">
       <p>Nome da tarefa</p>
-      <input type="text" name="nomeTarefa" id="nomeTarefa" title="nomeTarefa" class="conteudo_form_campo" placeholder="Nome da tarefa" autocomplete="off" required>
+      <input type="text" name="nome" id="nome" title="nome" class="conteudo_form_campo" placeholder="Nome da tarefa" autocomplete="off" required>
     </div>
 
     <div class="conteudo_form_container">
       <p>Prioridade</p>
-      <input type="radio" class="btn-check" name="definirPrioridade" id="baixa" autocomplete="off">
+      <input type="radio" class="btn-check" name="prioridade" id="baixa" value="3" autocomplete="off">
       <label class="btn check_baixa" for="baixa">Baixa</label>
 
-      <input type="radio" class="btn-check" name="definirPrioridade" id="media" autocomplete="off">
+      <input type="radio" class="btn-check" name="prioridade" id="media" value="2"autocomplete="off">
       <label class="btn check_media" for="media">Média</label>
 
-      <input type="radio" class="btn-check" name="definirPrioridade" id="alta" autocomplete="off">
+      <input type="radio" class="btn-check" name="prioridade" id="alta" value="1" autocomplete="off">
       <label class="btn check_alta" for="alta">Alta</label>
     </div>
 

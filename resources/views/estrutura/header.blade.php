@@ -3,7 +3,6 @@
 <div class="cabecalho">
   <div class="cabecalho_conteudo">
     <a class="cabecalho_conteudo_sair" data-action-logout><strong>Sair</strong></a>
-    
     <div class="cabecalho_conteudo_perfil">
       <div class="cabecalho_conteudo_perfil_escritos">
         <h3 class="cabecalho_conteudo_perfil_texto">Olá</h3>

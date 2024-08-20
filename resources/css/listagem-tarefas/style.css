@@ -55,6 +55,30 @@ body {
     font-weight: 600;
 }
 
+.conteudo_containertarefa_linha_acoes_botoes:hover {
+    color: #f1630b;
+    text-decoration: none;
+}
+
+.paginacao {
+    display: flex;
+    justify-content: center;
+}
+
+.page-link {
+    color: #ff914d;
+}
+
+.page-item.active .page-link {
+    background-color: #ff914d;
+    border-color: #ff914d;
+}
+
+.page-item .page-link:hover {
+    background-color: #ffdfcb;
+    color: #ff914d;
+}
+
 @media (max-width: 992px) { 
     .conteudo_containertarefa_titulo_media {
         display: block;

@@ -31,7 +31,8 @@ class Paginacao {
   public function __construct(
     private int $totalRegistros, 
     private int $itensPorPagina, 
-    private int $paginaAtual
+    private int $paginaAtual,
+    private string $uri
   ) {
     $this->filtros = $_GET;
   }
@@ -123,7 +124,7 @@ class Paginacao {
     $parametors = $this->filtros;
     unset($parametors['pagina']);
 
-    $url = $_ENV['APP_URL'] . '?' . http_build_query($parametors);
+    $url = $_ENV['APP_URL'] . $this->uri .'?' . http_build_query($parametors);
     if(!empty($parametors)) $url .= '&';
 
     return $url;
