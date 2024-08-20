@@ -68,18 +68,3 @@ Route::get('/editar-perfil', [
 Route::post('/editar-perfil', [
   \App\Http\Controllers\App\Usuario\Post::class, 'atualizar'
 ])->name('request.perfil');
-
-
-// ROTAS DE CONFIRMACAO
-
-Route::get('/senha-alterada', [
-  \App\Http\Controllers\App\ConfirmaSenhaAlterada\Get::class, 'consultarPagina'
-])->name('web.ver.senha.alterada');
-
-Route::get('/excluir-tarefa/{id}', [
-  \App\Http\Controllers\App\ConfirmaExcluirTarefa\Get::class, 'consultarPagina'
-])->name('web.ver.excluir.tarefa');
-
-Route::get('/confirma-excluir-tarefa', [
-  \App\Http\Controllers\App\ConfirmaExcluirTarefa\Confirma::class, 'consultarPagina'
-])->name('web.ver.confirma.excluir.tarefa');
