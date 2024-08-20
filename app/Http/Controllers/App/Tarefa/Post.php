@@ -4,6 +4,8 @@ namespace App\Http\Controllers\App\Tarefa;
 
 use \Illuminate\Http\Request;
 use \App\Http\Controllers\Framework\Base;
+use App\Models\Packages\App\Tarefa\Actions\TarefaAction;
+use App\Models\Packages\App\Tarefa\Validates\Tarefa;
 
 /**
  * class Post
@@ -56,12 +58,36 @@ class Post extends Base {
   }
 
   /**
-   * Método responsável por realizar a validação da requisição de login
+   * Método responsável por cadastrar os dados da tarefa
    * @param  Request      $request      Dados da requisição
    * @return string
    */
-  public function cadastrarAtualizarTarefa(Request $request) {
+  public function cadastrarTarefa(Request $request) {
     $this->validarAcesso($request);
+
+    $request = $request->all();
+
+    $obTarefa = new Tarefa();
+    $obTarefa->atualizaTarefa($request);
+
+    return response()->json([
+      'status'   => $this->status,
+      'mensagem' => $this->mensagem
+    ]);
+  }
+
+  /**
+   * Método responsável por atualizar os dados da tarefa
+   * @param  Request      $request      Dados da requisição
+   * @return string
+   */
+  public function atualizarTarefa(Request $request) {
+    $this->validarAcesso($request);
+
+    $request = $request->all();
+
+    $obTarefa = new Tarefa();
+    $obTarefa->cadastrarTarefa($request);
 
     return response()->json([
       'status'   => $this->status,

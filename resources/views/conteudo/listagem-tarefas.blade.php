@@ -5,26 +5,37 @@
 
 <div class="container my-5 conteudo_containertarefa">
   <div class="conteudo_containertarefa_linha_cabecalho">
-        <h6>Nome</h6>
-        <h6>Responsável</h6>
-        <h6>Data de Vencimento</h6>
-        <h6>Prioridade</h6>
-        <div class="conteudo_containertarefa_cabecalho_acoes">
-          <h6>Ações</h6>
-        </div>
+    <h6>Nome</h6>
+    <h6>Responsável</h6>
+    <h6>Prioridade</h6>
+    <div class="conteudo_containertarefa_cabecalho_acoes">
+      <h6>Ações</h6>
+    </div>
   </div>
 
-  @for ($i = 0; $i < 10; $i++)
-    <div class="conteudo_containertarefa_linha">
-      <span>Tarefa {{ $i + 1 }}</span>
-      <h6>teste@teste.com.br</h6>
-      <h6>15/08/2024</h6>
-      <h6>Normal</h6>
-      <div class="conteudo_containertarefa_linha_acoes">
-        <a href="{{ $URL_APP }}/editar-tarefa/{{ $i + 1 }}" class="conteudo_containertarefa_linha_acoes_botoes">Editar</a>
-        <a href="#" class="conteudo_containertarefa_linha_acoes_botoes">Remover</a>
-        <a href="#" class="btn btn-dark">Concluir</a>
-      </div>
+  @foreach ($tarefasUsuario as $tarefa)
+  <div class="conteudo_containertarefa_linha">
+    <span>{{$tarefa->nome}}</span>
+    <h6>{{$tarefa->responsavel}}</h6>
+    <h6>{{$tarefa->prioridade}}</h6>
+    <div class="conteudo_containertarefa_linha_acoes">
+      <a href="{{ $URL_APP }}/editar-tarefa/{{$tarefa->id}}" class="conteudo_containertarefa_linha_acoes_botoes">Editar</a>
+      <a href="#" class="conteudo_containertarefa_linha_acoes_botoes">Remover</a>
+      <a href="#" class="btn btn-dark">Concluir</a>
     </div>
-  @endfor
+  </div>
+  @endforeach
+  @isset($paginacao)
+  <nav aria-label="Page navigation example" class="paginacao">
+    <ul class="pagination">
+      @foreach($paginacao->paginacao as $pagina)
+        @if($pagina->active == 'true')
+          <li class="page-item active"><a class="page-link" href="{{$pagina->url}}">{{$pagina->page}}</a></li>
+        @else
+          <li class="page-item"><a class="page-link" href="{{$pagina->url}}">{{$pagina->page}}</a></li>
+        @endif
+      @endforeach
+    </ul>
+  </nav>
+  @endisset
 </div>

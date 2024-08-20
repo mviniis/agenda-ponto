@@ -6,6 +6,8 @@ use \App\Models\DTOs\UsuarioDTO;
 use \Mviniis\ConnectionDatabase\DB\{DBExecute, DBEntity};
 use \Mviniis\ConnectionDatabase\SQL\Parts\{SQLJoin, SQLFields, SQLWhereGroup, SQLWhere};
 
+use function Psy\debug;
+
 /**
  * class UsuarioAction
  * 

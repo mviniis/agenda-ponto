@@ -4,6 +4,7 @@ namespace App\Http\Controllers\App\Tarefa;
 
 use \Illuminate\Http\Request;
 use \App\Http\Controllers\Framework\Base;
+use App\Models\Packages\App\Tarefa\Validates\Tarefa;
 use \App\Models\Packages\Sistema\Handler\{HandlerCss, HandlerJs};
 
 /**
@@ -90,6 +91,14 @@ class Get extends Base {
     return $this;
   }
 
+  public function buscarConteudoTarefa($idTarefa){
+
+    $obTarefas = new Tarefa();
+    $conteudoTarefa = $obTarefas->getConteudoTarefa($idTarefa);
+    
+    $this->addConteudo('tarefa', $conteudoTarefa);
+  }
+
   /**
    * Método responsável por realizar a chamada do conteúdo da página
    * @param  Request       $request       Dados da requisição
@@ -99,6 +108,9 @@ class Get extends Base {
   public function consultar(Request $request, $id = null) {
     $this->validarAcesso($request, $id)->configure();
 
+    if(!is_null($id) || is_numeric($id)){
+      $this->buscarConteudoTarefa($id);
+    }
     // MONTA OS ARQUIVO DE HANDLER
     $this->atualizarHandlers();
 

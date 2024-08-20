@@ -3,10 +3,6 @@
 <div class="cabecalho">
   <div class="cabecalho_conteudo">
     <a class="cabecalho_conteudo_sair" data-action-logout><strong>Sair</strong></a>
-    <div class="cabecalho_pesquisa">
-      <img src="{{ $URL_IMG }}/geral/pesquisa.png" style="width: 30px; height: 30px;" alt="AgendaPonto Logo" class="w">
-      <textarea rows="1" cols="35" class="cabecalho_conteudo_textarea"></textarea>
-    </div>
     <div class="cabecalho_conteudo_perfil">
       <div class="cabecalho_conteudo_perfil_escritos">
         <h3 class="cabecalho_conteudo_perfil_texto">Olá</h3>

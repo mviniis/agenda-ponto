@@ -64,11 +64,11 @@ Route::middleware([])->group(function() {
   ])->name('request.recuperacao');
   
   Route::post('/cadastrar-tarefa', [
-    \App\Http\Controllers\App\Tarefa\Post::class, 'cadastrarAtualizarTarefa'
+    \App\Http\Controllers\App\Tarefa\Post::class, 'cadastrarTarefa'
   ])->name('request.tarefa');
   
   Route::post('/editar-tarefa', [
-    \App\Http\Controllers\App\Tarefa\Post::class, 'cadastrarAtualizarTarefa'
+    \App\Http\Controllers\App\Tarefa\Post::class, 'atualizarTarefa'
   ])->name('request.tarefa.detalhe');
   
   Route::delete('/remover-tarefa', [

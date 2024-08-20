@@ -40,6 +40,13 @@ body > .box-debug > #conteudoBoxDebug {
   cursor: pointer;
 }
 
+.cabecalho_conteudo_sair:hover {
+  text-decoration: none !important;
+  color: #FFF;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
 .cabecalho_conteudo_textarea {
   background-color: #ff914d;
   border: 2px solid #FFF;
