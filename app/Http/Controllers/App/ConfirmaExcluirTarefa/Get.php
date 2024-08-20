@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\App\PaginasConfirmacao;
+namespace App\Http\Controllers\App\ConfirmaExcluirTarefa;
 
 use \App\Http\Controllers\Framework\Base;
 use \App\Models\Packages\Sistema\Handler\{HandlerCss, HandlerJs};
@@ -18,7 +18,7 @@ class Get extends Base
     
         // CONFIGURAÇÃO DOS ARQUIVOS
         $obHandlerCSS->setFilesAndFolders([
-          'geral', 'botstrap', 'paginas_confirmacoes'
+          'geral', 'botstrap', 'confirma_excluir_tarefa'
         ]);
         $obHandlerJS->setFilesAndFolders([
           'geral', 'botstrap'
@@ -37,7 +37,7 @@ class Get extends Base
         // MONTA OS ARQUIVO DE HANDLER
         $this->atualizarHandlers();
     
-        return $this->getConteudo('senha-alterada');
+        return $this->getConteudo('confirma-excluir-tarefa');
       }
 
 }

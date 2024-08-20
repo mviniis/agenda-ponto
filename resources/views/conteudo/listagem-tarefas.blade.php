@@ -1,6 +1,6 @@
 <div class="cabecalho">
   <div class="cabecalho_conteudo">
-    <a href="#" class="cabecalho_conteudo_sair"><strong>Sair</strong></a>
+    <a href="{{ $URL_APP }}" class="cabecalho_conteudo_sair"><strong>Sair</strong></a>
     <div class="cabecalho_pesquisa">
       <img src="{{ $URL_IMG }}/geral/pesquisa.png" style="width: 30px; height: 30px;" alt="AgendaPonto Logo" class="w">
       <textarea rows="1" cols="35" class="cabecalho_conteudo_textarea"></textarea>
@@ -42,7 +42,7 @@
       <h6>Normal</h6>
       <div class="conteudo_containertarefa_linha_acoes">
         <a href="{{ $URL_APP }}/editar-tarefa/{{ $i + 1 }}" class="conteudo_containertarefa_linha_acoes_botoes">Editar</a>
-        <a href="#" class="conteudo_containertarefa_linha_acoes_botoes">Remover</a>
+        <a href="{{ $URL_APP }}/excluir-tarefa/{{ $i + 1 }}" class="conteudo_containertarefa_linha_acoes_botoes">Remover</a>
         <a href="#" class="btn btn-dark">Concluir</a>
       </div>
     </div>
