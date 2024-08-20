@@ -1,3 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Cabecalho */
+
+body {
+    font-family: "Poppins", sans-serif;
+}
+
+.cabecalho {
+    background-color: #ff914d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+}
+
+.cabecalho_conteudo {
+    width: 85%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cabecalho_conteudo_sair {
+    text-decoration: none;
+    color: #FFF;
+    font-size: 1.3rem;
+}
+
+.cabecalho_conteudo_textarea {
+    background-color: #ff914d;
+    border: 2px solid #FFF;
+    border-radius: 16px;
+    height: 50%;
+    color: #FFF;
+    resize: none;
+}
+
+.cabecalho_conteudo_perfil_escritos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cabecalho_conteudo_perfil {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cabecalho_conteudo_perfil_texto {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #FFF;
+}
+
+.cabecalho_conteudo_perfil_nomeusuario {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #FFF;
+}
+
+.cabecalho_pesquisa {
+    display: flex;
+    flex-direction: row;
+    justify-content: baseline;
+    gap: 5px;
+}
+
 /* Conteúdo */
 .conteudo_cadastrartarefa {
     cursor: pointer;
@@ -7,6 +79,10 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+
+.conteudo_containertarefa_titulo_media {
+    display: none;
 }
 
 .conteudo_containertarefa_linha {
@@ -41,4 +117,42 @@
 .conteudo_containertarefa_linha_acoes_botoes {
     color: #ff914d;
     font-weight: 600;
+}
+
+@media (max-width: 992px) { 
+
+    .cabecalho_pesquisa {
+        display: none;
+    }
+
+    .cabecalho_conteudo {
+        flex-direction: row-reverse;
+    }
+
+    .cabecalho_conteudo_perfil {
+        flex-direction: row-reverse;
+    }
+
+    .conteudo_containertarefa_titulo_media {
+        display: block;
+    }
+
+    .conteudo_containertarefa_linha_cabecalho {
+        display: none;
+    }
+
+    .conteudo_containertarefa_linha {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .conteudo_containertarefa_linha h6 {
+        margin: 0;
+    }
+
+    .conteudo_containertarefa_linha_acoes {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
 }

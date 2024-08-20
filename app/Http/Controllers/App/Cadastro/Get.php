@@ -24,10 +24,10 @@ class Get extends Base {
 
     // CONFIGURAÇÃO DOS ARQUIVOS
     $obHandlerCSS->setFilesAndFolders([
-      'geral', 'botstrap'
+      'geral', 'botstrap', 'inicio'
     ]);
     $obHandlerJS->setFilesAndFolders([
-      'geral', 'botstrap'
+      'geral', 'cadastro'
     ]);
 
     // DEFINIÇÃO DOS OBJETOS
