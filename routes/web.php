@@ -46,7 +46,7 @@ Route::middleware([AppRequireLogin::class])->group(function() {
 });
 
 // REQUISIÇÕES HTTP QUE REALIZARÃO UMA AÇÃO E NÃO VÃO RETORNAR HTML
-Route::middleware([])->group(function() {
+Route::middleware(['web'])->group(function() {
   Route::post('/', [
     \App\Http\Controllers\App\Inicio\Post::class, 'efetuarLogin'
   ])->name('request.logar');

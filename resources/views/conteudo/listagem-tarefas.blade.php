@@ -12,6 +12,9 @@
       <h6>Ações</h6>
     </div>
   </div>
+  <div>
+    <h3 class="conteudo_containertarefa_titulo_media">Lista de tarefas</h3>
+  </div>
 
   @foreach ($tarefasUsuario as $tarefa)
   <div class="conteudo_containertarefa_linha">

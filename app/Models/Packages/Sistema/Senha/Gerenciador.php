@@ -9,6 +9,12 @@ use \Exception;
  * 
  * Classe responsável por realizar a manipulação das senha
  * 
+ * REGRAS DA IMPLEMENTAÇÃO DA SENHA:
+ *  - Mínimo de 5 caracteres
+ *  - Mínimo de 3 letras
+ *  - Mínimo de 3 números
+ *  - Não pode possuir espaços
+ * 
  * @author Matheus Vinicius
  */
 class Gerenciador {
