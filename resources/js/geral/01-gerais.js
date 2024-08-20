@@ -1,6 +1,4 @@
 $(() => {
-  console.log('teste 1');
-  
   // DEFINE O CSRF TOKEN PARA TODAS AS REQUISIÇÕES AJAX
   $.ajaxSetup({
     headers: {
@@ -12,8 +10,6 @@ $(() => {
 // LOGOUT DO USUÁRIO
 $(function() {
   $(document).on('click', '[data-action-logout]', () => {
-    console.log('teste 2');
-    
     $.ajax({
       url: URL_APP + '/logout',
       method: 'POST',
