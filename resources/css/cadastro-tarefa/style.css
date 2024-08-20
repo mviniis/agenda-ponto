@@ -22,8 +22,21 @@ p {
     width: calc(100% - 40px);
 }
 
+.conteudo_sair {
+    width: 40px; 
+    height: 40px;
+}
+
 .conteudo_form_campo {
     width: 100%;
+    padding: 10px;
+    border: 3px solid #797979;
+    border-radius: 10px;
+}
+
+.conteudo_form_campo_descricao {
+    width: 100%;
+    height: 15vh;
     padding: 10px;
     border: 3px solid #797979;
     border-radius: 10px;
@@ -72,4 +85,39 @@ form textarea {
     background-color: #ed752a;
     border-radius: 10px;
     border: none;
+}
+
+@media (max-width: 992px) {
+
+    .cabecalho_conteudo {
+        display: none;
+    }
+
+    .conteudo_footer {
+        background-color: #ff914d;
+        height: 17vh;
+    }
+
+    .conteudo_form {
+        position: relative;
+        top: -2em;
+        background-color: #FFF;
+        border: 4px solid #b4b3b3;
+        border-radius: 20px;
+    }
+
+    .conteudo_sair {
+        width: 20px; 
+        height: 20px;
+    }
+
+    .conteudo_form_container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .conteudo_form {
+        width: 95%;
+    }
 }

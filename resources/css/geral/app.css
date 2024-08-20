@@ -21,7 +21,7 @@ body > .box-debug > #conteudoBoxDebug {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 10vh;
+  padding: 5px 0;
 }
 
 .cabecalho_conteudo {
