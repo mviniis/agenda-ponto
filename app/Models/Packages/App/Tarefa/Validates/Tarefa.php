@@ -95,6 +95,7 @@ class Tarefa {
 
   public function buscaProprietarioTarefa(){
     $obTarefaUsuario = new TarefaUsuarioAction();
+    $newArrTarefas   = [];
     
     foreach($this->obTarefas as $tarefa){
       $obRetorno = $obTarefaUsuario->getProprietarioTarefa($tarefa['id'], 1);
