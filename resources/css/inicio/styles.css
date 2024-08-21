@@ -10,22 +10,28 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #ff8a3d;
+    background-color: #ff914d;
 }
 
 p {
     text-align: left;
 }
+h1{
+    text-align: left;
+    margin-bottom: 4vh;
+    font-weight: bold;
+}
 
 .containe {
     display: flex;
+    color: #737373;
     width: 100%;
     height: 100%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .lado-esquerdo {
-    background-color: #ff8a3d;
+    background-color: #ff914d;
     color: white;
     width: 50%;
     display: flex;
@@ -94,14 +100,14 @@ p {
 }
 
 .esqueceu-senha a {
-    color: #ff8a3d;
+    color: #ff914d;
     text-decoration: none;
 }
 
 button[type="submit"] {
     width: 100%;
     padding: 10px;
-    background-color: #ff8a3d;
+    background-color: #ff914d;
     color: white;
     border: none;
     border-radius: 5px;
@@ -110,7 +116,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #e67b2d;
+    background-color: #ff914d;
 }
 
 .criar-conta {
@@ -120,7 +126,7 @@ button[type="submit"]:hover {
 }
 
 .criar-conta a {
-    color: #ff8a3d;
+    color: #ff914d;
     text-decoration: none;
 }
 
@@ -172,7 +178,10 @@ button[type="submit"]:hover {
   }
   
   .custom-checkbox:checked {
-    background-color: #ff8a3d; /* Cor de fundo ao marcar */
+    background-color: #ff914d; /* Cor de fundo ao marcar */
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
   }
   
   .custom-checkbox:checked::after {
@@ -182,6 +191,7 @@ button[type="submit"]:hover {
     width: 5px;
     height: 10px;
     transform: rotate(45deg);
+
   }
   .custom-checkbox:focus {
     box-shadow: 0 0 0 0;
