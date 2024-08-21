@@ -37,7 +37,7 @@
             <input type="text" class="form-control" name="email" id="tel" placeholder="name@example.com">
             <label for="floating1">Digite seu telefone</label>
           </div>
-          <div class="form-floating">
+          <div class="form-floating mb-3">
             <input type="password" class="form-control" id="password" placeholder="Password">
             <label for="password"><img src="{{ $URL_IMG }}/geral/cadeadosenha.svg"
                 style="width: 20px; height: auto; padding-right: 5px;" alt="AgendaPonto Logo" class="w">Digite sua
@@ -47,6 +47,7 @@
               <img id="toggleIcon" src="https://img.icons8.com/ios-glyphs/30/000000/visible.png" alt="Mostrar senha" />
             </span>
           </div>
+          <button type="submit">Enviar</button>
         </div>
         <div class="cnpj_form" style="display:none;">
           <div class="form-floating mb-3">
@@ -66,10 +67,10 @@
             <label for="floating1">Digite seu Email</label>
           </div>
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" name="email" id="tel" placeholder="name@example.com">
+            <input type="text" class="form-control" name="email" id="telemp" placeholder="name@example.com">
             <label for="floating1">Digite seu telefone</label>
           </div>
-          <div class="form-floating">
+          <div class="form-floating mb-3">
             <input type="password" class="form-control" id="password" placeholder="Password">
             <label for="password"><img src="{{ $URL_IMG }}/geral/cadeadosenha.svg"
                 style="width: 20px; height: auto; padding-right: 5px;" alt="AgendaPonto Logo" class="w">Digite sua
@@ -79,9 +80,8 @@
               <img id="toggleIcon" src="https://img.icons8.com/ios-glyphs/30/000000/visible.png" alt="Mostrar senha" />
             </span>
           </div>
+          <button type="submit">Enviar</button>
         </div>
-        <br>
-        <button type="submit">Enviar</button>
       </form>
     </div>
   </div>

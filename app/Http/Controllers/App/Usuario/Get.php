@@ -24,7 +24,7 @@ class Get extends Base {
 
     // CONFIGURAÇÃO DOS ARQUIVOS
     $obHandlerCSS->setFilesAndFolders([
-      'geral', 'botstrap'
+      'geral', 'botstrap', 'editar-perfil'
     ]);
     $obHandlerJS->setFilesAndFolders([
       'geral', 'botstrap'

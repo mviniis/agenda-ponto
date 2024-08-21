@@ -20,6 +20,14 @@ Route::middleware([AppRequireLogin::class])->group(function() {
     \App\Http\Controllers\App\Inicio\Get::class, 'consultar'
   ])->name('web.ver.login');
 
+  Route::get('/recuperar-senha/parte2', [
+    \App\Http\Controllers\App\Recuperacao\Get::class, 'consultarp2'
+  ])->name('web.ver.recuperacaop2');
+  
+  Route::get('/recuperar-senha/parte3', [
+    \App\Http\Controllers\App\Recuperacao\Get::class, 'consultarp3'
+  ])->name('web.ver.recuperacaop3');
+
   Route::get('/cadastro', [
     \App\Http\Controllers\App\Cadastro\Get::class, 'consultar'
   ])->name('web.ver.cadastro');
