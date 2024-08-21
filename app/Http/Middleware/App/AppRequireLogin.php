@@ -23,7 +23,10 @@ class AppRequireLogin {
    */
   public function handle($request, Closure $next) {
     $rotaAtualAcesso      = $request->route()->getName();
-    $rotasSemAutenticacao = ['web.ver.login', 'web.ver.cadastro', 'web.ver.recuperacao'];
+    $rotasSemAutenticacao = [
+      'web.ver.login', 'web.ver.cadastro', 'web.ver.recuperacao',
+      'web.ver.recuperacaop2', 'web.ver.recuperacaop3'
+    ];
     $possuiUsuarioLogado  = (new UsuarioSessao)->usuarioEstaLogado();
 
     // VERIFICO SE O USUÁRIO NÃO LOGADO ESTÁ TENTANDO ACESSAR UM RECURSO EM QUE ELE DEVE ESTAR LOGADO
