@@ -2,7 +2,7 @@
 
 <a href="{{ $URL_APP }}/listagem-tarefas">Voltar</a>
 
-<form action="{{ $URL_APP }}/{{ $uriFormulario }}" method="post">
+<form class="editarTarefaForm" method="POST">
   @csrf
   <input type="hidden" name="idTarefa" id="idTarefa" value="{{ $idTarefa }}">
 
@@ -22,7 +22,7 @@
       <label for="baixa">Baixa</label><br>
     </div>
     <div>
-      @if($tarefa->prioridade == 'baixa')
+      @if($tarefa->prioridade == 'media')
         <input type="radio" id="media" name="prioridade" value="2" checked>
       @else
         <input type="radio" id="media" name="prioridade" value="2">

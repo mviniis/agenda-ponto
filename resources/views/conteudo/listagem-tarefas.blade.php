@@ -3,6 +3,7 @@
 </a>
 
 
+@if(isset($tarefasUsuario) && !empty($tarefasUsuario))
 <div class="container my-5 conteudo_containertarefa">
   <div class="conteudo_containertarefa_linha_cabecalho">
     <h6>Nome</h6>
@@ -21,22 +22,27 @@
     <span>{{$tarefa->nome}}</span>
     <h6>{{$tarefa->responsavel}}</h6>
     <h6>{{$tarefa->prioridade}}</h6>
-    <div class="conteudo_containertarefa_linha_acoes">
+    <div class="conteudo_containertarefa_linha_acoes acoes-tarefa" data-idTarefa='{{$tarefa->id}}'>
       <a href="{{ $URL_APP }}/editar-tarefa/{{$tarefa->id}}" class="conteudo_containertarefa_linha_acoes_botoes">Editar</a>
-      <a href="#" class="conteudo_containertarefa_linha_acoes_botoes">Remover</a>
-      <a href="#" class="btn btn-dark">Concluir</a>
+      @if($tarefa->permissao->remover == 's')
+      <a href="#" class="conteudo_containertarefa_linha_acoes_botoes removerTarefa">Remover</a>
+      @endif
+      @if($tarefa->concluido == 'n')
+      <a href="#" class="btn btn-dark concluirTarefa">Concluir</a>
+      @endif
     </div>
   </div>
   @endforeach
+  @endif
   @isset($paginacao)
   <nav aria-label="Page navigation example" class="paginacao">
     <ul class="pagination">
       @foreach($paginacao->paginacao as $pagina)
-        @if($pagina->active == 'true')
-          <li class="page-item active"><a class="page-link" href="{{$pagina->url}}">{{$pagina->page}}</a></li>
-        @else
-          <li class="page-item"><a class="page-link" href="{{$pagina->url}}">{{$pagina->page}}</a></li>
-        @endif
+      @if($pagina->active == 'true')
+      <li class="page-item active"><a class="page-link" href="{{$pagina->url}}">{{$pagina->page}}</a></li>
+      @else
+      <li class="page-item"><a class="page-link" href="{{$pagina->url}}">{{$pagina->page}}</a></li>
+      @endif
       @endforeach
     </ul>
   </nav>

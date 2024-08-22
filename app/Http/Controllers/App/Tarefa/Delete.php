@@ -4,6 +4,7 @@ namespace App\Http\Controllers\App\Tarefa;
 
 use \Illuminate\Http\Request;
 use \App\Http\Controllers\Framework\Base;
+use App\Models\Packages\App\Tarefa\Validates\Tarefa;
 
 /**
  * class Delete
@@ -23,9 +24,25 @@ class Delete extends Base {
    * @return string
    */
   public function remover(Request $request) {
+
+    $status   = true;
+    $mensagem = 'Tarefa removida com sucesso!';
+
+    try {
+      $obTarefa = new Tarefa();
+
+      $request = $request->all();
+
+      $obTarefa->excluirTarefa($request['idTarefa']);
+
+    } catch(\Exception $ex) {
+      $status           = false;
+      $mensagem         = $ex->getMessage();
+    }
+
     return response()->json([
-      'status'   => true,
-      'mensagem' => 'Tarefa removida com sucesso!'
+      'status'   => $status,
+      'mensagem' => $mensagem
     ]);
   }
 }
