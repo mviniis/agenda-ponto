@@ -55,7 +55,7 @@ class Get extends Base {
     $obPaginacao       = new Paginacao($totalItens, $itensPorPagina, $_GET['pagina'] ?? 0, '/listagem-tarefas');
     // SALVA A PAGINAÇÃO
     $this->paginacao = [
-      'total'          => (new TarefaAction)->buscaTotalTarefasPorUsuario((new UsuarioSessao)->getIdUsuarioLogado()),
+      'total'          => $totalItens,
       'itensPorPagina' => $itensPorPagina,
       'itensVisiveis'  => $itensVisualizados,
       'paginacao'      => $obPaginacao->generate()
