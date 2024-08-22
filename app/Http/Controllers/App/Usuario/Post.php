@@ -76,13 +76,18 @@ class Post extends Base {
       $obAction = ($obValidacaoPessoa->getTipoPessoaFisica()) ? new PessoaFisicaAction: new PessoaJuridicaAction;
       $obAction->atualizarPessoa($obTipoPessoaDTO);
       
+      // MONTA OS DADOS QUE SERÃO UTILIZADOS PARA ATUALIZAR A SESSÃO
+      $isPessoaFisica       = $obValidacaoPessoa->getTipoPessoaFisica();
+      $obSessao             = new UsuarioSessao;
+      $hashSessaoNome       = ($isPessoaFisica) ? ['nome']     : ['razaoSocial'];
+      $hashSessaoSobrenome  = ($isPessoaFisica) ? ['sobrenome']: ['nomeFantasia'];
+      $campoNomeObjeto      = ($isPessoaFisica) ? 'nome': 'razaoSocial';
+      $campoSobrenomeObjeto = ($isPessoaFisica) ? 'sobrenome': 'nomeFantasia';
+
       // SALVA OS DADOS NA SESSÃO
-      $obSessao            = new UsuarioSessao;
-      $hashSessaoNome      = ($obValidacaoPessoa->getTipoPessoaFisica()) ? ['nome']     : ['razaoSocial'];
-      $hashSessaoSobrenome = ($obValidacaoPessoa->getTipoPessoaFisica()) ? ['sobrenome']: ['nomeFantasia'];
       $obSessao->atualizarCampo(['login', 'email'], $obPessoaDTO->email);
-      $obSessao->atualizarCampo(array_merge(['dadosPessoais'], $hashSessaoNome), $obTipoPessoaDTO->nome);
-      $obSessao->atualizarCampo(array_merge(['dadosPessoais'], $hashSessaoSobrenome), $obTipoPessoaDTO->sobrenome);
+      $obSessao->atualizarCampo(array_merge(['dadosPessoais'], $hashSessaoNome), $obTipoPessoaDTO->$campoNomeObjeto);
+      $obSessao->atualizarCampo(array_merge(['dadosPessoais'], $hashSessaoSobrenome), $obTipoPessoaDTO->$campoSobrenomeObjeto);
       $obSessao->atualizarCampo(array_merge(['dadosPessoais'], ['telefone']), $obPessoaTelefoneDTO->telefoneContato);
     } catch (\Exception $ex) {
       $status           = false;

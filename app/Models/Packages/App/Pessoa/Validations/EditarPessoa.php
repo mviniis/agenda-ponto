@@ -61,7 +61,7 @@ class EditarPessoa {
    * @return self
    */
   public function definirIdsUsuarioLogado(): self {
-    $this->idPessoa  = (new UsuarioSessao)->getDadosPessoais()['id'];
+    $this->idPessoa  = (new UsuarioSessao)->getDadosLogin()['idPessoa'];
     $this->idUsuario = (new UsuarioSessao)->getIdUsuarioLogado();
     return $this;
   }
