@@ -24,7 +24,7 @@ class Get extends Base {
 
     // CONFIGURAÇÃO DOS ARQUIVOS
     $obHandlerCSS->setFilesAndFolders([
-      'geral', 'botstrap'
+      'geral', 'botstrap', 'inicio'
     ]);
     $obHandlerJS->setFilesAndFolders([
       'geral', 'botstrap'
@@ -48,5 +48,22 @@ class Get extends Base {
     $this->atualizarHandlers();
 
     return $this->getConteudo('recuperacao');
+  }
+
+  public function consultarp2() {
+    $this->configure();
+
+    // MONTA OS ARQUIVO DE HANDLER
+    $this->atualizarHandlers();
+
+    return $this->getConteudo('recuperacaop2');
+  }
+  public function consultarp3() {
+    $this->configure();
+
+    // MONTA OS ARQUIVO DE HANDLER
+    $this->atualizarHandlers();
+
+    return $this->getConteudo('recuperacaop3');
   }
 }
