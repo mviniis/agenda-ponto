@@ -13,7 +13,7 @@ return new class extends Migration
 	 */
 	public function up()
 	{
-		define('PATH_ENV_APP', __DIR__ . "/../../.env");
+		if(!defined('PATH_ENV_APP')) define('PATH_ENV_APP', __DIR__ . "/../../.env");		
 
 		(new PerfilTarefaAction)->insert(
 			ignore: true,
