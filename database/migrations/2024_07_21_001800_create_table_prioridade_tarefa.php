@@ -13,7 +13,7 @@ return new class extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('prioridade_tabela', function (Blueprint $table) {
+		Schema::create('prioridade_tarefa', function (Blueprint $table) {
 			// CAMPOS DA TABELA
 			$table->increments('id');
 			$table->string('label', 100)->index('label');
@@ -27,6 +27,6 @@ return new class extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('prioridade_tabela');
+		Schema::dropIfExists('prioridade_tarefa');
 	}
 };

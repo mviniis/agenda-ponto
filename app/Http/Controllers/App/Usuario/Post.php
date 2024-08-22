@@ -4,6 +4,10 @@ namespace App\Http\Controllers\App\Usuario;
 
 use \Illuminate\Http\Request;
 use \App\Http\Controllers\Framework\Base;
+use \App\Models\Packages\App\Usuario\Sessao\UsuarioSessao;
+use \App\Models\Packages\App\Pessoa\Validations\{EditarPessoa, EditarTelefone};
+use \App\Models\DTOs\{PessoaDTO, PessoaFisicaDTO, PessoaJuridicaDTO, PessoaTelefoneDTO};
+use \App\Models\Packages\App\Pessoa\Actions\{PessoaAction, PessoaFisicaAction, PessoaJuridicaAction, PessoaTelefoneAction};
 
 /**
  * class Post
@@ -23,9 +27,77 @@ class Post extends Base {
    * @return string
    */
   public function atualizar(Request $request) {
+    $status           = true;
+    $mensagem         = 'Dados alterados com sucesso!';
+    $codigoRequisicao = 200;
+
+    try {
+      // VALIDAÇÃO DA PESSOA
+      $obValidacaoPessoa = (new EditarPessoa(
+        (string) $request->email,
+        (string) $request->nome, 
+        (string) $request->sobrenome
+      ))->definirIdsUsuarioLogado()->definirTipoPessoaUsuarioLogado()->validarEmailUsuarioLogado()->validarNomes();
+
+      // VALIDAÇÃO DO TELEFONE
+      $obValidacaoTelefone = (new EditarTelefone((string) $request->telefone))->validarTelefoneContatoUsuarioLogado();
+
+      // MONTA O DTO DE PESSOA
+      $obPessoaDTO        = new PessoaDTO;
+      $obPessoaDTO->id    = $obValidacaoPessoa->getIdPessoa();
+      $obPessoaDTO->email = $request->email;
+
+      // MONTA O DTO DO TIPO DE PESSOA
+      $obTipoPessoaDTO = null;
+      switch($obValidacaoPessoa->getTipoPessoaFisica()) {
+        case true:
+          $obTipoPessoaDTO            = new PessoaFisicaDTO;
+          $obTipoPessoaDTO->idPessoa  = $obValidacaoPessoa->getIdPessoa();
+          $obTipoPessoaDTO->nome      = $request->nome;
+          $obTipoPessoaDTO->sobrenome = $request->sobrenome;
+          break;
+        
+        default:
+          $obTipoPessoaDTO               = new PessoaJuridicaDTO();
+          $obTipoPessoaDTO->idPessoa     = $obValidacaoPessoa->getIdPessoa();
+          $obTipoPessoaDTO->razaoSocial  = $request->nome;
+          $obTipoPessoaDTO->nomeFantasia = $request->sobrenome;
+          break;
+      }
+
+      // MONTA O OBJETO DO TELEFONE
+      $obPessoaTelefoneDTO                  = new PessoaTelefoneDTO;
+      $obPessoaTelefoneDTO->idPessoa        = $obValidacaoPessoa->getIdPessoa();
+      $obPessoaTelefoneDTO->telefoneContato = $obValidacaoTelefone->getTelefoneContato();
+
+      // REALIZA AS ATUALIZAÇÕES
+      (new PessoaAction)->atualizarEmailPessoa($obPessoaDTO);
+      (new PessoaTelefoneAction)->atualizarTelefones($obPessoaTelefoneDTO);
+      $obAction = ($obValidacaoPessoa->getTipoPessoaFisica()) ? new PessoaFisicaAction: new PessoaJuridicaAction;
+      $obAction->atualizarPessoa($obTipoPessoaDTO);
+      
+      // MONTA OS DADOS QUE SERÃO UTILIZADOS PARA ATUALIZAR A SESSÃO
+      $isPessoaFisica       = $obValidacaoPessoa->getTipoPessoaFisica();
+      $obSessao             = new UsuarioSessao;
+      $hashSessaoNome       = ($isPessoaFisica) ? ['nome']     : ['razaoSocial'];
+      $hashSessaoSobrenome  = ($isPessoaFisica) ? ['sobrenome']: ['nomeFantasia'];
+      $campoNomeObjeto      = ($isPessoaFisica) ? 'nome': 'razaoSocial';
+      $campoSobrenomeObjeto = ($isPessoaFisica) ? 'sobrenome': 'nomeFantasia';
+
+      // SALVA OS DADOS NA SESSÃO
+      $obSessao->atualizarCampo(['login', 'email'], $obPessoaDTO->email);
+      $obSessao->atualizarCampo(array_merge(['dadosPessoais'], $hashSessaoNome), $obTipoPessoaDTO->$campoNomeObjeto);
+      $obSessao->atualizarCampo(array_merge(['dadosPessoais'], $hashSessaoSobrenome), $obTipoPessoaDTO->$campoSobrenomeObjeto);
+      $obSessao->atualizarCampo(array_merge(['dadosPessoais'], ['telefone']), $obPessoaTelefoneDTO->telefoneContato);
+    } catch (\Exception $ex) {
+      $status           = false;
+      $mensagem         = $ex->getMessage();
+      $codigoRequisicao = $ex->getCode();
+    }
+
     return response()->json([
-      'status'   => true,
-      'mensagem' => 'Perfil atualizado com sucesso!'
-    ]);
+      'status'   => $status,
+      'mensagem' => $mensagem
+    ], $codigoRequisicao);
   }
 }

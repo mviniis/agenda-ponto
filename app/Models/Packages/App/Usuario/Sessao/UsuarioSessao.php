@@ -4,7 +4,7 @@ namespace App\Models\Packages\App\Usuario\Sessao;
 
 use \App\Models\DTOs\UsuarioDTO;
 use \App\Models\Packages\Sistema\Sessao\SessionManager;
-use \App\Models\Packages\App\Pessoa\Actions\{PessoaAction, PessoaFisicaAction, PessoaJuridicaAction};
+use \App\Models\Packages\App\Pessoa\Actions\{PessoaAction, PessoaFisicaAction, PessoaJuridicaAction, PessoaTelefoneAction};
 
 /**
  * class UsuarioSessao
@@ -71,11 +71,39 @@ class UsuarioSessao {
   }
 
   /**
+   * Método responsável por verificar se o usuário é do tipo pessoa física
+   * @return bool
+   */
+  public function tipoUsuarioPessoaFisica(): bool {
+    return $this->getTipoPessoaUsuarioLogado() == 'fisica';
+  }
+
+  /**
+   * Método responsável por retornar os dados do login do usuário
+   * @return array
+   */
+  public function getDadosLogin(): array {
+    return $this->obSession->get(['login']) ?? [];
+  }
+
+  /**
    * Método responsável por retornar os dados pessois do usuário logado
    * @return array
    */
   public function getDadosPessoais(): array {
     return $this->obSession->get(['dadosPessoais']) ?? [];
+  }
+
+  /**
+   * Método responsável por atualizar os dados de um campo específico da sessão de usuário
+   * @param  array      $hash       Hash da sessão que será alterado
+   * @param  mixed      $valor      Valor que será adicionado
+   * @return void
+   */
+  public function atualizarCampo(array $hash, mixed $valor): void {
+    if(is_null($valor)) return;
+    $this->obSession->remove($hash);
+    $this->obSession->set($hash, $valor);
   }
 
   /**
@@ -96,6 +124,9 @@ class UsuarioSessao {
     if(!$obEntityPessoa->getSuccess()) {
       throw new \Exception('Não foi possível realizar o login do usuário. Entre em contado com nosso suporte.', 500);
     }
+
+    // DADOS DE CONTATO
+    $obEntityTelefone = (new PessoaTelefoneAction)->getTelefoneContatoPorIdPessoa($obUsuario->idPessoa);
 
     // BUSCA OS DADOS PESSOAIS DO USUÁRIO
     $tipoPessoa = is_numeric($obEntityPessoa->getData()->idPessoaFisica) ? 'fisica': 'juridica';
@@ -123,6 +154,7 @@ class UsuarioSessao {
 
     // SALVA OS DADOS NA SESSÃO
     $dadosPessoais['tipoPessoa'] = $tipoPessoa;
+    $dadosPessoais['telefone']   = $obEntityTelefone->getSuccess() ? $obEntityTelefone->getData()->telefoneContato: '';
     $this->obSession->set(['login'], $dadosLogin);
     $this->obSession->set(['dadosPessoais'], $dadosPessoais);
   }

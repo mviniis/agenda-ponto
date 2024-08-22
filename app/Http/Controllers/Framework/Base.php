@@ -119,7 +119,7 @@ abstract class Base extends Controller implements BaseInterface {
     $contador = 0;
     foreach($dadosLayout as $chave => $valor) {
       $hashItem = "indice-{$recursao}-{$contador}";
-      if($valor instanceof stdClass) $valor = $this->montarLayoutDebug($valor, ($recursao + 1), $hashItem);
+      if($valor instanceof stdClass || is_array($valor)) $valor = $this->montarLayoutDebug($valor, ($recursao + 1), $hashItem);
 
       $dados .= view('estrutura.debug.box-item', [
         'nomeCabecalho'  => $chave,

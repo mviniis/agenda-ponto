@@ -35,14 +35,14 @@ class TarefaAction extends DBExecute {
 
     $joins   = [];
     $joins[] = new SQLJoin('tarefa_usuario',condicoes: new SQLWhere('tarefa.id', '=', 'tarefa_usuario.id_tarefa', true));
-    $joins[] = new SQLJoin('prioridade_tabela', condicoes: new SQLWhere('tarefa.id_prioridade', '=', 'prioridade_tabela.id', true));
+    $joins[] = new SQLJoin('prioridade_tarefa', condicoes: new SQLWhere('tarefa.id_prioridade', '=', 'prioridade_tarefa.id', true));
 
     $campos = [
       new SQLFields('id', 'tarefa'),
       new SQLFields('nome', 'tarefa'),
       new SQLFields('descricao', 'tarefa'),
       new SQLFields('concluido', 'tarefa'),
-      new SQLFields('label', 'prioridade_tabela', 'prioridade')
+      new SQLFields('label', 'prioridade_tarefa', 'prioridade')
     ];
 
     $offset = $_ENV['APP_ITENS_POR_PAGINA'] * $pagina;
@@ -62,14 +62,14 @@ class TarefaAction extends DBExecute {
     $condicoes = new SQLWhere('tarefa.id', '=', $idTarefa);
 
     $joins   = [];
-    $joins[] = new SQLJoin('prioridade_tabela', condicoes: new SQLWhere('tarefa.id_prioridade', '=', 'prioridade_tabela.id', true));
+    $joins[] = new SQLJoin('prioridade_tarefa', condicoes: new SQLWhere('tarefa.id_prioridade', '=', 'prioridade_tarefa.id', true));
 
     $campos = [
       new SQLFields('id', 'tarefa'),
       new SQLFields('nome', 'tarefa'),
       new SQLFields('descricao', 'tarefa'),
       new SQLFields('concluido', 'tarefa'),
-      new SQLFields('label', 'prioridade_tabela', 'prioridade')
+      new SQLFields('label', 'prioridade_tarefa', 'prioridade')
     ];
 
     return $this->select($condicoes, $joins, $campos)->fetchObject();
@@ -78,14 +78,14 @@ class TarefaAction extends DBExecute {
   /**
    * Método responsável por buscar as tarefas de um usuário
    * @param int          $idUsuario   ID do usuário
-   * @return DBEntity
+   * @return int
    */
   public function buscaTotalTarefasPorUsuario (int $idUsuario) {
     $condicoes = new SQLWhere('tarefa_usuario.id_usuario', '=', $idUsuario);
 
     $joins   = [];
     $joins[] = new SQLJoin('tarefa_usuario', condicoes: new SQLWhere('tarefa.id', '=', 'tarefa_usuario.id_tarefa', true));
-    $joins[] = new SQLJoin('prioridade_tabela', condicoes: new SQLWhere('tarefa.id_prioridade', '=', 'prioridade_tabela.id', true));
+    $joins[] = new SQLJoin('prioridade_tarefa', condicoes: new SQLWhere('tarefa.id_prioridade', '=', 'prioridade_tarefa.id', true));
 
     // CAMPOS QUE SERÃO RETORNADOS
     $campos = [

@@ -4,7 +4,7 @@ namespace App\Models\Packages\App\Pessoa\Actions;
 
 use \App\Models\DTOs\PessoaDTO;
 use \Mviniis\ConnectionDatabase\DB\{DBEntity, DBExecute};
-use \Mviniis\ConnectionDatabase\SQL\Parts\{SQLFields, SQLWhere, SQLJoin};
+use \Mviniis\ConnectionDatabase\SQL\Parts\{SQLFields, SQLWhere, SQLJoin, SQLSet, SQLSetItem};
 
 /**
  * class PessoaAction
@@ -40,5 +40,35 @@ class PessoaAction extends DBExecute {
     ];
 
     return $this->select($condicao, joins: $joins, fields: $campos)->fetchObject();
+  }
+
+  /**
+   * Método responsável por verificar se o e-mail já foi cadastrado
+   * @param  string       $email       E-mail que será validado
+   * @return bool
+   */
+  public function verificarDuplicidadeEmail(string $email): bool {
+    $condicao = new SQLWhere('email', '=', $email);
+    $campos   = [new SQLFields('id', aliasCampo: 'total', function: 'COUNT')];
+    return $this->select($condicao, fields: $campos)->fetchColumn() > 0;
+  }
+
+  /**
+   * Método responsável por realizar a atualização do e-mail de uma pessoa
+   * @param  PessoaDTO      $obPessoa      Objeto da pessoa que será atualizada
+   * @return bool
+   */
+  public function atualizarEmailPessoa(PessoaDTO $obPessoa): bool {
+    if(!is_numeric($obPessoa->id) || $obPessoa->id <= 0) return false;
+
+    // CONDIÇÃO PARA A ATUALIZAÇÃO
+    $condicao = new SQLWhere('id', '=', $obPessoa->id);
+    
+    // DEFINE O CAMPO QUE SERÁ ATUALIZADO
+    $set = new SQLSet([
+      new SQLSetItem('email', $obPessoa->email)
+    ]);
+
+    return $this->update($set, $condicao)->rowCount() > 0;
   }
 }

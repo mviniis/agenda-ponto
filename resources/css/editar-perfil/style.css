@@ -1,3 +1,6 @@
+body > div.cabecalho {
+    display: none;
+}
 .conteudo {
     height: 100vh;
     display: flex;
@@ -7,9 +10,10 @@
 
 .cabecalho {
     background-color: #ff914d;
-    height: 15vh;
     display: flex;
     align-items: center;
+    justify-content: start;
+    padding: 20px;
 }
 
 .btn_formatado {
@@ -68,4 +72,9 @@
 .rodape {
     background-color: #ff914d;
     height: 15vh;
+}
+#editarPerfil button[type="submit"] > .spinner-border {
+    width: 15px;
+    height: 15px;
+    margin-left: 3px;
 }
