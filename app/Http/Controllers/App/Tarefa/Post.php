@@ -44,6 +44,10 @@ class Post extends Base {
         $this->mensagem = 'A tarefa foi alterada com sucesso!';
       break;
 
+      case 'request.tarefa.detalhe.conclusao':
+        $this->mensagem = 'A tarefa foi concluída com sucesso!';
+      break;
+
       default:
         $this->status   = false;
         $this->mensagem = 'Você não tem permissão para executar essa ação';
@@ -68,7 +72,12 @@ class Post extends Base {
     $request = $request->all();
 
     $obTarefa = new Tarefa();
-    $obTarefa->atualizaTarefa($request);
+    $retorno = $obTarefa->cadastrarTarefa($request);
+
+    if(!$retorno){
+      $this->status = false;
+      $this->mensagem = 'Houve um problema ao tentar cadastrar a tarefa!';
+    }
 
     return response()->json([
       'status'   => $this->status,
@@ -87,7 +96,36 @@ class Post extends Base {
     $request = $request->all();
 
     $obTarefa = new Tarefa();
-    $obTarefa->cadastrarTarefa($request);
+    $retorno = $obTarefa->atualizaTarefa($request);
+
+    if(!$retorno){
+      $this->status = false;
+      $this->mensagem = 'Houve um problema ao tentar atualizar a tarefa!';
+    }
+
+    return response()->json([
+      'status'   => $this->status,
+      'mensagem' => $this->mensagem
+    ]);
+  }
+
+  /**
+   * Método responsável por atualizar os dados da tarefa
+   * @param  Request      $request      Dados da requisição
+   * @return string
+   */
+  public function concluirTarefa(Request $request) {
+    $this->validarAcesso($request);
+
+    $request = $request->all();
+
+    $obTarefa = new Tarefa();
+    $retorno = $obTarefa->concluirTarefa($request['idTarefa']);
+
+    if(!$retorno){
+      $this->status = false;
+      $this->mensagem = 'Houve um problema ao tentar concluir a tarefa!';
+    }
 
     return response()->json([
       'status'   => $this->status,
