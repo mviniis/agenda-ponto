@@ -22,7 +22,7 @@ return new class extends Migration
 			$table->enum('concluido', ['s', 'n'])->default('n')->index('concluido');
 			
 			// DEFINIÇÃO DAS CHAVES ESTRANGEIRAS
-			$table->foreign('id_prioridade')->references('id')->on('prioridade_tabela');
+			$table->foreign('id_prioridade')->references('id')->on('prioridade_tarefa');
 		});
 	}
 
