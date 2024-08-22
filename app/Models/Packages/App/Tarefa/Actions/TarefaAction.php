@@ -6,6 +6,7 @@ use App\Models\DTOs\TarefaDTO;
 use \Mviniis\ConnectionDatabase\DB\DBExecute;
 use Mviniis\ConnectionDatabase\SQL\Parts\SQLFields;
 use Mviniis\ConnectionDatabase\SQL\Parts\SQLJoin;
+use Mviniis\ConnectionDatabase\SQL\Parts\SQLOrder;
 use Mviniis\ConnectionDatabase\SQL\Parts\SQLSet;
 use Mviniis\ConnectionDatabase\SQL\Parts\SQLSetItem;
 use Mviniis\ConnectionDatabase\SQL\Parts\SQLValues;
@@ -30,15 +31,12 @@ class TarefaAction extends DBExecute {
    * @return DBEntity
    */
   public function getTarefasPorUsuario (int $idUsuario, int $pagina) {
-    // CONDIÇÕES DO WHERE
     $condicoes = new SQLWhere('tarefa_usuario.id_usuario', '=', $idUsuario);
 
-    // MONTA O JOIN COM A TABELA PESSOA
     $joins   = [];
-    $joins[] = new SQLJoin('tarefa_usuario', condicoes: new SQLWhere('tarefa.id', '=', 'tarefa_usuario.id_tarefa', true));
+    $joins[] = new SQLJoin('tarefa_usuario',condicoes: new SQLWhere('tarefa.id', '=', 'tarefa_usuario.id_tarefa', true));
     $joins[] = new SQLJoin('prioridade_tabela', condicoes: new SQLWhere('tarefa.id_prioridade', '=', 'prioridade_tabela.id', true));
 
-    // CAMPOS QUE SERÃO RETORNADOS
     $campos = [
       new SQLFields('id', 'tarefa'),
       new SQLFields('nome', 'tarefa'),
@@ -49,12 +47,18 @@ class TarefaAction extends DBExecute {
 
     $offset = $_ENV['APP_ITENS_POR_PAGINA'] * $pagina;
 
-    return $this->select($condicoes, $joins, $campos, null, $_ENV['APP_ITENS_POR_PAGINA'],$offset)->fetchAllObjects();
+    $order = new SQLOrder('concluido',direction:'DESC');
+
+    return $this->select($condicoes, $joins, $campos, $order, $_ENV['APP_ITENS_POR_PAGINA'],$offset)->fetchAllObjects();
   }
 
+  /**
+   * Método responsável por buscar os dados uma tarefa específica
+   * @param int $idTarefa - ID da tarefa
+   * @return DBEntity
+   */
   public function getTarefaPorId (int $idTarefa) {
     
-    // CONDIÇÕES DO WHERE
     $condicoes = new SQLWhere('tarefa.id', '=', $idTarefa);
 
     $joins   = [];
@@ -77,10 +81,8 @@ class TarefaAction extends DBExecute {
    * @return DBEntity
    */
   public function buscaTotalTarefasPorUsuario (int $idUsuario) {
-    // CONDIÇÕES DO WHERE
     $condicoes = new SQLWhere('tarefa_usuario.id_usuario', '=', $idUsuario);
 
-    // MONTA O JOIN COM A TABELA PESSOA
     $joins   = [];
     $joins[] = new SQLJoin('tarefa_usuario', condicoes: new SQLWhere('tarefa.id', '=', 'tarefa_usuario.id_tarefa', true));
     $joins[] = new SQLJoin('prioridade_tabela', condicoes: new SQLWhere('tarefa.id_prioridade', '=', 'prioridade_tabela.id', true));
@@ -93,34 +95,74 @@ class TarefaAction extends DBExecute {
     return $this->select($condicoes, $joins, $campos)->fetchColumn();
   }
 
+  /**
+   * Método responsável por atualizar os dados de uma tarefa
+   * @param array $dadosAtualizacao - Dados da tarefa
+   * @return int
+   */
   public function atualizaTarefa (array $dadosAtualizacao) {
     
-    // CONDIÇÕES DO WHERE
     $condicoes = new SQLWhere('id', '=', $dadosAtualizacao['idTarefa']);
 
     $sets= new SQLSet([
       new SQLSetItem('nome', $dadosAtualizacao['nome']),
       new SQLSetItem('descricao', $dadosAtualizacao['descricao']),
-      new SQLSetItem('prioridade', $dadosAtualizacao['prioridade']),
+      new SQLSetItem('id_prioridade', $dadosAtualizacao['prioridade']),
     ]);
 
-    return $this->update($sets,$condicoes);
+    return $this->update($sets,$condicoes)->rowCount();
   }
 
-  public function cadastrarTarefa (array $dadosAtualizacao) {
+  /**
+   * Método responsável por cadastrar uma tarefa
+   * @param array $dadosTarefa - Dados da tarefa
+   * @return int
+   */
+  public function cadastrarTarefa (array $dadosTarefa) {
+
+    $sets= new SQLValues([
+      new SQLValuesGroup([$dadosTarefa['nome'],$dadosTarefa['descricao'],$dadosTarefa['prioridade'],'n'])
+    ]);
+
+    $fields = [
+      new SQLFields('nome'),
+      new SQLFields('descricao'),
+      new SQLFields('id_prioridade'),
+      new SQLFields('concluido')
+    ];
+
+    return $this->insert($fields,$sets)->getLastInsertId();
+  }
+
+  /**
+   * Método responsável por excluir uma tarefa
+   * @param int $idTarefa - ID da tarefa
+   * @return int
+   */
+  public function excluirTarefa(int $idTarefa) {
     
-    // CONDIÇÕES DO WHERE
-    $condicoes = new SQLWhere('id', '=', $dadosAtualizacao['idTarefa']);
+    $condicoes = new SQLWhere('id', '=', $idTarefa);
 
-    $sets= new SQLValuesGroup([
-      new SQLValues('nome', $dadosAtualizacao['nome']),
-      new SQLValues('descricao', $dadosAtualizacao['descricao']),
-      new SQLValues('prioridade', $dadosAtualizacao['prioridade']),
-    ]);
-
-    return $this->insert($sets,$condicoes);
+    return $this->delete($condicoes)->rowCount();
   }
 
+
+  /**
+   * Método responsável por concluir uma tarefa
+   * @param int $idTarefa - ID da tarefa
+   * @return int
+   */
+  public function concluirTarefa(int $idTarefa) {
+    
+    $condicoes = new SQLWhere('id', '=', $idTarefa);
+
+    $sets= new SQLSet([
+      new SQLSetItem('concluido', 's')
+    ]);
+
+    return $this->update($sets, $condicoes)->rowCount();
+  }
+  
   
 
 }

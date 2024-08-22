@@ -81,7 +81,7 @@ class Get extends Base {
       'geral', 'botstrap', 'tarefas', 'cadastro-tarefa'
     ]);
     $obHandlerJS->setFilesAndFolders([
-      'geral', 'botstrap'
+      'geral', 'botstrap', 'tarefas'
     ]);
 
     // DEFINIÇÃO DOS OBJETOS

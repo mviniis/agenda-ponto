@@ -74,6 +74,10 @@ Route::middleware(['web'])->group(function() {
   Route::delete('/remover-tarefa', [
     \App\Http\Controllers\App\Tarefa\Delete::class, 'remover'
   ])->name('request.tarefa.detalhe.remocao');
+
+  Route::post('/concluir-tarefa', [
+    \App\Http\Controllers\App\Tarefa\Post::class, 'concluirTarefa'
+  ])->name('request.tarefa.detalhe.conclusao');
   
   Route::post('/editar-perfil', [
     \App\Http\Controllers\App\Usuario\Post::class, 'atualizar'

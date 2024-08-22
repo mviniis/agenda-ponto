@@ -6,7 +6,7 @@
     <a href="{{ $URL_APP }}/listagem-tarefas" data-placement="top" title="Voltar"><img src="{{ $URL_IMG }}/geral/fechar.png" class="conteudo_sair" alt="Fechar Icone" class="w"></a>
   </div>
 
-  <form action="{{ $URL_APP }}/{{ $uriFormulario }}" method="post">
+  <form class="criarTarefaForm" method="POST">
     @csrf
 
     <div class="conteudo_form_container">
@@ -28,7 +28,7 @@
 
     <div class="conteudo_form_container">
       <p>Descrição</p>
-      <input type="text" class="conteudo_form_campo_descricao" placeholder="Escreva aqui..." name="descricao"></input>
+      <textarea class="conteudo_form_campo_descricao" placeholder="Escreva aqui..." name="descricao" ></textarea>
     </div>
 
     <div class="conteudo_form_container btn_enviar_container">

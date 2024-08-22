@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\App\Listagem;
 
 use \App\Http\Controllers\Framework\Base;
-use App\Models\DTOs\TarefaUsuarioDTO;
 use App\Models\Packages\App\Tarefa\Actions\TarefaAction;
 use App\Models\Packages\App\Tarefa\Validates\Tarefa;
-use App\Models\Packages\App\TarefaUsuario\Actions\TarefaUsuarioAction;
+
 use App\Models\Packages\App\Usuario\Sessao\UsuarioSessao;
 use \App\Models\Packages\Sistema\Handler\{HandlerCss, HandlerJs};
 use \App\Models\Packages\Sistema\Paginacao\Paginacao;
@@ -38,7 +37,7 @@ class Get extends Base {
       'geral', 'botstrap', 'listagem-tarefas'
     ]);
     $obHandlerJS->setFilesAndFolders([
-      'geral', 'botstrap', 'listagem-tarefas'
+      'geral', 'botstrap', 'listagem-tarefas', 'tarefas'
     ]);
 
     // DEFINIÇÃO DOS OBJETOS
