@@ -21,15 +21,42 @@
   <img src="{{ $URL_IMG }}/geral/icone_cadastrar_tarefa.png" style="width: 60px; height: 60px;" alt="Cadastrar Tarefa Icone" class="w">
 </a>
 
+<!-- Lista de tarefas -->
+<table class="container my-5 conteudo_tabela">
+  <thead><tr><td class="conteudo_containertarefa_titulo_media" colspan="4">Lista de tarefas</td></tr></thead>
+  <thead class="conteudo_tabela_cabecalho">
+    <tr>
+      <td class="conteudo_tabela_titulo">Nome</td>
+      <td class="conteudo_tabela_titulo">Responsável</td>
+      <td class="conteudo_tabela_titulo">Prioridade</td>
+      <td class="conteudo_tabela_titulo">Ações</td>
+    </tr>
+  </thead>
+  <tbody>
+    @for ($i = 0; $i < 5; $i++)
+      <tr class="conteudo_tabela_linha">
+        <td class="conteudo_tabela_celula">Tarefa {{ $i + 1 }}</td>
+        <td class="conteudo_tabela_celula">teste{{ $i + 1 }}@teste.com.br</td>
+        <td class="conteudo_tabela_celula">Normal</td>
+        <td class="conteudo_tabela_celula">
+          <a href="{{ $URL_APP }}/editar-tarefa/{{ $i + 1 }}" class="conteudo_containertarefa_linha_acoes_botoes">Editar</a>
+          <a href="#" class="conteudo_containertarefa_linha_acoes_botoes">Remover</a>
+          <a href="#" class="btn btn-dark">Concluir</a>
+        </td>
+      </tr>
+    @endfor
+  </tbody>
+</table>
 
+<!-- 
 <div class="container my-5 conteudo_containertarefa">
   <div class="conteudo_containertarefa_linha_cabecalho">
-        <h6>Nome</h6>
-        <h6>Responsável</h6>
-        <h6>Prioridade</h6>
-        <div class="conteudo_containertarefa_cabecalho_acoes">
-          <h6>Ações</h6>
-        </div>
+    <h6>Nome</h6>
+    <h6>Responsável</h6>
+    <h6>Prioridade</h6>
+    <div class="conteudo_containertarefa_cabecalho_acoes">
+      <h6>Ações</h6>
+    </div>
   </div>
   <div>
     <h3 class="conteudo_containertarefa_titulo_media">Lista de tarefas</h3>
@@ -38,13 +65,8 @@
   @for ($i = 0; $i < 10; $i++)
     <div class="conteudo_containertarefa_linha">
       <span>Tarefa {{ $i + 1 }}</span>
-      <h6>teste{{ $i + 1 }}@teste.com.br</h6>
-      <h6>Normal</h6>
-      <div class="conteudo_containertarefa_linha_acoes">
-        <a href="{{ $URL_APP }}/editar-tarefa/{{ $i + 1 }}" class="conteudo_containertarefa_linha_acoes_botoes">Editar</a>
-        <a href="{{ $URL_APP }}/excluir-tarefa/{{ $i + 1 }}" class="conteudo_containertarefa_linha_acoes_botoes">Remover</a>
-        <a href="#" class="btn btn-dark">Concluir</a>
-      </div>
     </div>
   @endfor
+</div>
+-->
 </div>
