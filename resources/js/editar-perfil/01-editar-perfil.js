@@ -1,25 +1,30 @@
-$(function() {
-  // AJAX DE LOGIN
-  $(document).on('submit', '#formulario-de-login', (event) => {
+$(() => {
+  $('[name="telefone"]').inputmask({
+    mask: ["(99) 9999-9999", "(99) 99999-9999", ],
+    keepStatic: true
+  });
+
+  $(document).on('submit', '#editarPerfil', event => {
     event.preventDefault();
     const formularioLogin = $(event.currentTarget);
 
-    // OBTEM OS DADOS DO FORMULÁRIO
-    let email = formularioLogin.find('[type="email"]').val();
-    let senha = formularioLogin.find('[type="password"]').val();
-    
-    // CHAMADA O AJAX DE LOGIN
     chamadaSpinnerLogin();
+
+    // OBTEM OS DADOS DO FORMULÁRIO
+    let dadosFormulario       = {};
+    dadosFormulario.email     = formularioLogin.find('[name="email"]').val();
+    dadosFormulario.nome      = formularioLogin.find('[name="nome"]').val();
+    dadosFormulario.sobrenome = formularioLogin.find('[name="sobrenome"]').val();
+    dadosFormulario.telefone  = formularioLogin.find('[name="telefone"]').val();
+
+    // REALIZA O ENVIO DO FORMULÁRIO
     $.ajax({
-      url: URL_APP + '/',
+      url: URL_APP + '/editar-perfil',
       method: 'POST',
       dataType: 'JSON',
-      data: {
-        email, senha
-      },
+      data: dadosFormulario,
       success: data => {
-        let callback = data.status ? () => window.location = URL_APP + '/listagem-tarefas': undefined;
-        exibirAlerta(data.mensagem, data.status, callback);
+        exibirAlerta(data.mensagem, true);
       },
       error: error => {
         let response = error.responseJSON;
@@ -31,13 +36,11 @@ $(function() {
         chamadaSpinnerLogin(false);
       }
     });
-    setTimeout(() => chamadaSpinnerLogin(false), 2500);
   });
 });
 
 function chamadaSpinnerLogin(habilitar = true) {
-  const spinner = $('[data-spinner-login]');
-
+  const spinner = $('[data-spinner-editar-usuario]');
   habilitar ? spinner.removeClass('d-none'): spinner.addClass('d-none');
 }
 

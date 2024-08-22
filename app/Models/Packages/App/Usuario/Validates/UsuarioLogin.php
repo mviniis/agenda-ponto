@@ -2,10 +2,10 @@
 
 namespace App\Models\Packages\App\Usuario\Validates;
 
-use App\Models\DTOs\UsuarioDTO;
-use App\Models\Packages\App\Usuario\Actions\UsuarioAction;
 use \Exception;
+use \App\Models\DTOs\UsuarioDTO;
 use \App\Models\Packages\Sistema\Senha\Gerenciador;
+use \App\Models\Packages\App\Usuario\Actions\UsuarioAction;
 
 /**
  * class UsuarioLogin

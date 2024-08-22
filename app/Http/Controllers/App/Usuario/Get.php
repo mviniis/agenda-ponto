@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\App\Usuario;
 
 use \App\Http\Controllers\Framework\Base;
+use \App\Models\Packages\App\Usuario\Sessao\UsuarioSessao;
 use \App\Models\Packages\Sistema\Handler\{HandlerCss, HandlerJs};
 
 /**
@@ -27,7 +28,7 @@ class Get extends Base {
       'geral', 'botstrap', 'editar-perfil'
     ]);
     $obHandlerJS->setFilesAndFolders([
-      'geral', 'botstrap'
+      'geral', 'botstrap', 'editar-perfil'
     ]);
 
     // DEFINIÇÃO DOS OBJETOS
@@ -46,6 +47,20 @@ class Get extends Base {
 
     // MONTA OS ARQUIVO DE HANDLER
     $this->atualizarHandlers();
+
+    // ADICIONA OS DADOS DO CLIENTE LOGADO
+    $obSessao            = new UsuarioSessao;
+    $usuarioPessoaFisica = $obSessao->tipoUsuarioPessoaFisica();
+    $dadosLogin          = (new UsuarioSessao)->getDadosLogin();
+    $dadosPessoais       = (new UsuarioSessao)->getDadosPessoais();
+    $this->addConteudo('dadosUsuario', [
+      'email'          => $dadosLogin['email'],
+      'nome'           => $usuarioPessoaFisica ? $dadosPessoais['nome']: $dadosPessoais['razaoSocial'],
+      'sobrenome'      => $usuarioPessoaFisica ? $dadosPessoais['sobrenome']: $dadosPessoais['nomeFantasia'],
+      'telefone'       => $dadosPessoais['telefone'],
+      'labelNome'      => $usuarioPessoaFisica ? 'Nome': 'Razão social',
+      'labelSobrenome' => $usuarioPessoaFisica ? 'Sobrenome': 'Nome Fantasia'
+    ]);
 
     return $this->getConteudo('editar-perfil');
   }
