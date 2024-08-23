@@ -23,7 +23,7 @@
           class="form-control input_formatacao" placeholder="Sobrenome"
           value="{{ $dadosUsuario->sobrenome }}"
         >
-        <label for="sobrenome" class="w">{{ $dadosUsuario->sobrenome }}</label>
+        <label for="sobrenome" class="w">{{ $dadosUsuario->labelSobrenome }}</label>
       </div>
       
       <div class="form-floating mb-3">
