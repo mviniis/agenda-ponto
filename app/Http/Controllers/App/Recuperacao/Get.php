@@ -4,6 +4,7 @@ namespace App\Http\Controllers\App\Recuperacao;
 
 use \App\Http\Controllers\Framework\Base;
 use \App\Models\Packages\Sistema\Handler\{HandlerCss, HandlerJs};
+use \App\Models\Packages\App\RecuperacaoSenha\Validates\RecuperarSenhaValidacoes;
 
 /**
  * class Get
@@ -44,6 +45,9 @@ class Get extends Base {
   public function consultar() {
     $this->configure();
 
+    // VERIFICA SE ESTOU NA PÁGINA CORRETA
+    (new RecuperarSenhaValidacoes)->validarLocal('parte1');
+
     // MONTA OS ARQUIVO DE HANDLER
     $this->atualizarHandlers();
 
@@ -57,6 +61,9 @@ class Get extends Base {
   public function consultarp2() {
     $this->configure();
 
+    // VERIFICA SE ESTOU NA PÁGINA CORRETA
+    (new RecuperarSenhaValidacoes)->validarLocal('parte2');
+
     // MONTA OS ARQUIVO DE HANDLER
     $this->atualizarHandlers();
 
@@ -69,6 +76,9 @@ class Get extends Base {
    */
   public function consultarp3() {
     $this->configure();
+
+    // VERIFICA SE ESTOU NA PÁGINA CORRETA
+    (new RecuperarSenhaValidacoes)->validarLocal('parte3');
 
     // MONTA OS ARQUIVO DE HANDLER
     $this->atualizarHandlers();

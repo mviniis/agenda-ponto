@@ -145,4 +145,39 @@ class RecuperarSenhaValidacoes {
   public function getIdUsuarioAlterarSenha(): int {
     return (int) (new RecuperarSenhaSessao)->getDadosSalvos()['idPessoa'];
   }
+
+  /**
+   * Método responsável por validar qual página o usário deve acessar
+   * @param  string       $parte       Tipo da validação da recuperação
+   * @return void
+   */
+  public function validarLocal(string $parte): void {
+    $dadosSessao = (new RecuperarSenhaSessao)->getDadosSalvos();
+    switch($parte) {
+      case 'parte1':
+        if(!empty($dadosSessao) && !isset($dadosSessao['ultimaEtapa'])) $this->redirecionar('/recuperar-senha/parte2');
+        if(!empty($dadosSessao) && isset($dadosSessao['ultimaEtapa'])) $this->redirecionar('/recuperar-senha/parte3');
+      break;
+      
+      case 'parte2':
+        if(empty($dadosSessao)) $this->redirecionar('/recuperar-senha');
+        if(!empty($dadosSessao) && isset($dadosSessao['ultimaEtapa'])) $this->redirecionar('/recuperar-senha/parte3');
+      break;
+      
+      case 'parte3':
+        if(empty($dadosSessao)) $this->redirecionar('/recuperar-senha');
+        if(!empty($dadosSessao) && !isset($dadosSessao['ultimaEtapa'])) $this->redirecionar('/recuperar-senha/parte2');
+      break;
+    }
+  }
+
+  /**
+   * Método responsável pelo redirecionamento de páginas
+   * @param  string       $local       Página que deve ser redirecionada
+   * @return void
+   */
+  private function redirecionar(string $local) {
+    header('Location: ' . $_ENV['APP_URL'] . $local);
+    exit;
+  }
 }
