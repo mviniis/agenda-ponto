@@ -4,6 +4,7 @@ namespace App\Http\Controllers\App\Recuperacao;
 
 use \App\Http\Controllers\Framework\Base;
 use \App\Models\Packages\Sistema\Handler\{HandlerCss, HandlerJs};
+use \App\Models\Packages\App\RecuperacaoSenha\Validates\RecuperarSenhaValidacoes;
 
 /**
  * class Get
@@ -27,7 +28,7 @@ class Get extends Base {
       'geral', 'botstrap', 'inicio'
     ]);
     $obHandlerJS->setFilesAndFolders([
-      'geral', 'botstrap'
+      'geral', 'botstrap', 'recuperacao-senha'
     ]);
 
     // DEFINIÇÃO DOS OBJETOS
@@ -44,22 +45,40 @@ class Get extends Base {
   public function consultar() {
     $this->configure();
 
+    // VERIFICA SE ESTOU NA PÁGINA CORRETA
+    (new RecuperarSenhaValidacoes)->validarLocal('parte1');
+
     // MONTA OS ARQUIVO DE HANDLER
     $this->atualizarHandlers();
 
     return $this->getConteudo('recuperacao');
   }
 
+  /**
+   * Método responsável por realizar a chamada do conteúdo da segunda etapa da recuperação de senha
+   * @return void
+   */
   public function consultarp2() {
     $this->configure();
+
+    // VERIFICA SE ESTOU NA PÁGINA CORRETA
+    (new RecuperarSenhaValidacoes)->validarLocal('parte2');
 
     // MONTA OS ARQUIVO DE HANDLER
     $this->atualizarHandlers();
 
     return $this->getConteudo('recuperacaop2');
   }
+
+  /**
+   * Método responsável por realizar a chamada do conteúdo da última etapa da recuperação de senha
+   * @return void
+   */
   public function consultarp3() {
     $this->configure();
+
+    // VERIFICA SE ESTOU NA PÁGINA CORRETA
+    (new RecuperarSenhaValidacoes)->validarLocal('parte3');
 
     // MONTA OS ARQUIVO DE HANDLER
     $this->atualizarHandlers();
