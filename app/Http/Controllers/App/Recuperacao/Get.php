@@ -27,7 +27,7 @@ class Get extends Base {
       'geral', 'botstrap', 'inicio'
     ]);
     $obHandlerJS->setFilesAndFolders([
-      'geral', 'botstrap'
+      'geral', 'botstrap', 'recuperacao-senha'
     ]);
 
     // DEFINIÇÃO DOS OBJETOS

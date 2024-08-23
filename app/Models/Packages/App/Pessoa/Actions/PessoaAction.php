@@ -43,6 +43,31 @@ class PessoaAction extends DBExecute {
   }
 
   /**
+   * Método responsável por retornar os dados de uma pessoa por e-mail
+   * @param  string       $email       E-mail da pessoa
+   * @return DBEntity
+   */
+  public function getDadosPessoaPorEmail(string $email): DBEntity {
+    $condicao = new SQLWhere('pessoa.email', '=', $email);
+    $campos   = [
+      new SQLFields('id', 'pessoa'),
+      new SQLFields('email', 'pessoa'),
+      new SQLFields('pessoa_fisica.nome, pessoa_juridica.nome_fantasia', aliasCampo: 'nome', function: 'COALESCE'),
+    ];
+
+    $joins = [
+      new SQLJoin('pessoa_fisica', tipo: 'LEFT', condicoes: new SQLWhere(
+        'pessoa_fisica.id', '=', 'pessoa.id', true
+      )),
+      new SQLJoin('pessoa_juridica', tipo: 'LEFT', condicoes: new SQLWhere(
+        'pessoa_juridica.id', '=', 'pessoa.id', true
+      ))
+    ];
+
+    return $this->select($condicao, joins: $joins, fields: $campos)->fetchObject();
+  }
+
+  /**
    * Método responsável por verificar se o e-mail já foi cadastrado
    * @param  string       $email       E-mail que será validado
    * @return bool

@@ -31,7 +31,6 @@ $(function() {
         chamadaSpinnerLogin(false);
       }
     });
-    setTimeout(() => chamadaSpinnerLogin(false), 2500);
   });
 });
 
@@ -54,5 +53,5 @@ function exibirAlerta(mensagem, sucesso = true, callback = undefined) {
     boxAlerta.addClass('d-none')
 
     if(callback !== undefined) callback(); 
-  }, 2000);
+  }, 1500);
 }
