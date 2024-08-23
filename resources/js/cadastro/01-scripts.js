@@ -10,15 +10,15 @@ $(() => {
     let dadosEnviar = {
       pessoa: {
         pessoaFisica: pessoaFisica,
-        email       : form.find('#email').val(),
+        email       : pessoaFisica ? form.find('#email').val()     : form.find('#emailEmp').val(),
         documento   : pessoaFisica ? form.find('#cpf').val()       : form.find('#cnpj').val(),
         nome        : pessoaFisica ? form.find('#nome').val()      : form.find('#razaosocial').val(),
         sobrenome   : pessoaFisica ? form.find('#sobrenome').val() : form.find('#nomefantasia').val(),
       },
       usuario: {
-        senha: form.find('#password').val()
+        senha: pessoaFisica ? form.find('#password').val(): form.find('#passwordEmp').val()
       },
-      telefone: form.find('#tel').val()
+      telefone: pessoaFisica ? form.find('#tel').val(): form.find('#telemp').val()
     };
 
     $.ajax({

@@ -50,11 +50,11 @@ class CadastrarPessoa {
    * @param array       $request       Dados da requisição
    */
   public function __construct(array $request) {
-    $this->pessoaFisica = ($request['pessoaFisica'] == 'true');
-    $this->email        = $request['email'];
-    $this->documento    = $request['documento'];
-    $this->nome         = $request['nome'];
-    $this->sobrenome    = $request['sobrenome'];
+    $this->pessoaFisica = ($request['pessoaFisica'] ?? 'true') == 'true';
+    $this->email        = $request['email'] ?? '';
+    $this->documento    = $request['documento'] ?? '';
+    $this->nome         = $request['nome'] ?? '';
+    $this->sobrenome    = $request['sobrenome'] ?? '';
   }
 
   /**

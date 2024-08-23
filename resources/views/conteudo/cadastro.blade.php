@@ -82,7 +82,7 @@
           </div>
 
           <div class="form-floating mb-3">
-            <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
+            <input type="email" class="form-control" name="email" id="emailEmp" placeholder="name@example.com">
             <label for="floating1">Digite seu Email</label>
           </div>
 
@@ -92,7 +92,7 @@
           </div>
 
           <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="password" placeholder="Password">
+            <input type="password" class="form-control" id="passwordEmp" placeholder="Password">
 
             <label for="password">
               <img src="{{ $URL_IMG }}/geral/cadeadosenha.svg"

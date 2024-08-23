@@ -40,8 +40,8 @@ class Post extends Base {
 
     try {
       $obValidacaoPessoa   = new CadastrarPessoa($dadosEnviados['pessoa']);
-      $obValidacaoTelefone = new EditarTelefone($dadosEnviados['telefone']);
-      $obValidacaoUsuario  = new UsuarioLogin(senha: $dadosEnviados['usuario']['senha']);
+      $obValidacaoTelefone = new EditarTelefone($dadosEnviados['telefone'] ?? '');
+      $obValidacaoUsuario  = new UsuarioLogin(senha: $dadosEnviados['usuario']['senha'] ?? '');
 
       // REALIZA AS VALIDAÇÕES
       $obValidacaoPessoa->validarEmail()->validarDocumento()->validarNomes();
