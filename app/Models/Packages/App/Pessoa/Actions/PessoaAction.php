@@ -4,7 +4,7 @@ namespace App\Models\Packages\App\Pessoa\Actions;
 
 use \App\Models\DTOs\PessoaDTO;
 use \Mviniis\ConnectionDatabase\DB\{DBEntity, DBExecute};
-use \Mviniis\ConnectionDatabase\SQL\Parts\{SQLFields, SQLWhere, SQLJoin, SQLSet, SQLSetItem};
+use \Mviniis\ConnectionDatabase\SQL\Parts\{SQLFields, SQLWhere, SQLJoin, SQLSet, SQLSetItem, SQLValues, SQLValuesGroup};
 
 /**
  * class PessoaAction
@@ -23,23 +23,10 @@ class PessoaAction extends DBExecute {
    * @return DBEntity
    */
   public function getIdTipoPessoa(int $idPessoa): DBEntity {
-    $condicao = new SQLWhere('pessoa.id', '=', $idPessoa);
+    $obPessoaFisica = (new PessoaFisicaAction)->getPessoaFisicaPorIdPessoa($idPessoa);
+    if($obPessoaFisica->getSuccess()) return $obPessoaFisica;
 
-    $campos = [
-      new SQLFields('id', 'pessoa_fisica', 'idPessoaFisica'),
-      new SQLFields('id', 'pessoa_juridica', 'idPessoaJuridica'),
-    ];
-
-    $joins = [
-      new SQLJoin('pessoa_fisica', tipo: 'LEFT', condicoes: new SQLWhere(
-        'pessoa_fisica.id', '=', 'pessoa.id', true
-      )),
-      new SQLJoin('pessoa_juridica', tipo: 'LEFT', condicoes: new SQLWhere(
-        'pessoa_juridica.id', '=', 'pessoa.id', true
-      ))
-    ];
-
-    return $this->select($condicao, joins: $joins, fields: $campos)->fetchObject();
+    return (new PessoaJuridicaAction)->getPessoaJuridicaPorIdPessoa($idPessoa);
   }
 
   /**
@@ -95,5 +82,19 @@ class PessoaAction extends DBExecute {
     ]);
 
     return $this->update($set, $condicao)->rowCount() > 0;
+  }
+
+  /**
+   * Método responsável por salvar os dados de uma nova pessoa
+   * @param  PessoaDTO      $obPessoaDTO      Dados que serão adicionados
+   * @return void
+   */
+  public function salvar(PessoaDTO &$obPessoaDTO): void {
+    $fields = [new SQLFields('email')];
+    $sets   = new SQLValues([
+      new SQLValuesGroup([$obPessoaDTO->email])
+    ]);
+
+    $obPessoaDTO->id = $this->insert($fields,$sets)->getLastInsertId();
   }
 }

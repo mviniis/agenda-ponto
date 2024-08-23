@@ -4,7 +4,7 @@ namespace App\Models\Packages\App\Pessoa\Actions;
 
 use \App\Models\DTOs\PessoaTelefoneDTO;
 use \Mviniis\ConnectionDatabase\DB\{DBEntity, DBExecute};
-use \Mviniis\ConnectionDatabase\SQL\Parts\{SQLFields, SQLSet, SQLSetItem, SQLWhere};
+use \Mviniis\ConnectionDatabase\SQL\Parts\{SQLFields, SQLSet, SQLSetItem, SQLValues, SQLValuesGroup, SQLWhere};
 
 /**
  * class PessoaFisicaAction
@@ -55,5 +55,20 @@ class PessoaTelefoneAction extends DBExecute {
 
     if(empty($sets)) return false;
     return $this->update(new SQLSet($sets), $condicao)->rowCount() > 0;
+  }
+
+  /**
+   * Método responsável por cadastrar o telefone de um novo usuário
+   * @param  PessoaTelefoneDTO       $obPessoaTelefoneDTO       Dados de telefones do usuário a ser adicionado
+   * @return bool
+   */
+  public function salvar(PessoaTelefoneDTO $obPessoaTelefoneDTO): bool {    
+    $fields = [new SQLFields('id_pessoa'), new SQLFields('telefone_contato')];
+    $values = new SQLValues([
+      new SQLValuesGroup([$obPessoaTelefoneDTO->idPessoa, $obPessoaTelefoneDTO->telefoneContato])
+    ]);
+
+    $idUsuario = $this->insert($fields, $values)->getLastInsertId();
+    return is_numeric($idUsuario);
   }
 }

@@ -10,7 +10,7 @@
     <div class="caixa-de-login">
       <h1>Cadastrar usuário</h1>
 
-      <form action="{{ $URL_APP }}/cadastro" method="post">
+      <form action="{{ $URL_APP }}/cadastro" method="post" id="cadastroUsuario">
         <div class="form-check mb-2 align-left">
           <input class="form-check-input custom-checkbox" type="checkbox" value="" id="cnpjCheckbox" onclick="toggleForms()">
 
@@ -19,7 +19,7 @@
 
         <div class="cpf_form">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" name="email" id="cpf" placeholder="name@example.com">
+            <input type="text" class="form-control" name="cpf" id="cpf" placeholder="name@example.com">
             <label for="floating1">Digite seu CPF</label>
           </div>
 
@@ -39,7 +39,7 @@
           </div>
 
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" name="email" id="tel" placeholder="name@example.com">
+            <input type="text" class="form-control" name="telefone" id="tel" placeholder="name@example.com">
             <label for="floating1">Digite seu telefone</label>
           </div>
 

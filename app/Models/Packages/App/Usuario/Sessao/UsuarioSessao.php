@@ -2,7 +2,7 @@
 
 namespace App\Models\Packages\App\Usuario\Sessao;
 
-use \App\Models\DTOs\UsuarioDTO;
+use \App\Models\DTOs\{UsuarioDTO, PessoaFisicaDTO};
 use \App\Models\Packages\Sistema\Sessao\SessionManager;
 use \App\Models\Packages\App\Pessoa\Actions\{PessoaAction, PessoaFisicaAction, PessoaJuridicaAction, PessoaTelefoneAction};
 
@@ -118,7 +118,7 @@ class UsuarioSessao {
       'idPessoa' => (int) $obUsuario->idPessoa,
       'email'    => (string) $obUsuario->email
     ];
-
+    
     // BUSCA OS DADOS DA PESSOA
     $obEntityPessoa = (new PessoaAction)->getIdTipoPessoa((int) $obUsuario->idPessoa);
     if(!$obEntityPessoa->getSuccess()) {
@@ -129,7 +129,7 @@ class UsuarioSessao {
     $obEntityTelefone = (new PessoaTelefoneAction)->getTelefoneContatoPorIdPessoa($obUsuario->idPessoa);
 
     // BUSCA OS DADOS PESSOAIS DO USUÁRIO
-    $tipoPessoa = is_numeric($obEntityPessoa->getData()->idPessoaFisica) ? 'fisica': 'juridica';
+    $tipoPessoa = ($obEntityPessoa->getData() instanceof PessoaFisicaDTO) ? 'fisica': 'juridica';
     switch($tipoPessoa) {
       case 'fisica':
         $obPessoaFisica = (new PessoaFisicaAction)->getPessoaFisicaPorIdPessoa($obUsuario->idPessoa)->getData();

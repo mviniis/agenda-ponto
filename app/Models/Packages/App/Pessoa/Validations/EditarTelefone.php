@@ -2,7 +2,9 @@
 
 namespace App\Models\Packages\App\Pessoa\Validations;
 
+use App\Models\DTOs\PessoaTelefoneDTO;
 use Exception;
+use Mviniis\ConnectionDatabase\DTO\DTO;
 
 /**
  * class EditarTelefone
@@ -29,11 +31,20 @@ class EditarTelefone {
    * @return self
    */
   public function validarTelefoneContatoUsuarioLogado(): self {
+    $this->validarNovoTelefoneContato();
+    $this->telefoneContato = $this->getNumerosTelefone($this->telefoneContato);
+    return $this;
+  }
+
+  /**
+   * Método responsável por validar um telefone de contato
+   * @return self
+   */
+  public function validarNovoTelefoneContato(): self {
     if(!$this->validarTelefoneCelular($this->telefoneContato) && !$this->validarTelefoneFixo($this->telefoneContato)) {
       throw new Exception('O telefone de contato informado é inválido.', 400);
     }
 
-    $this->telefoneContato = $this->getNumerosTelefone($this->telefoneContato);
     return $this;
   }
 
@@ -41,8 +52,20 @@ class EditarTelefone {
    * Método responsável por obter o telefone de contato
    * @return string
    */
-  public function getTelefoneContato(): string {
-    return $this->telefoneContato;
+  public function getTelefoneContato(bool $somenteNumeros = false): string {
+    return $somenteNumeros ? $this->getNumerosTelefone($this->telefoneContato): $this->telefoneContato;
+  }
+
+  /**
+   * Métoodo responsável por gerar um DTO do telefone do usário
+   * @return DTO
+   */
+  public function getObjetoDtoTelefone(): DTO {
+    $obPessoaTelefoneDTO                      = new PessoaTelefoneDTO;
+    $obPessoaTelefoneDTO->telefoneContato     = $this->getNumerosTelefone($this->telefoneContato);
+    $obPessoaTelefoneDTO->telefoneCelular     = $this->getNumerosTelefone($this->telefoneCelular);
+    $obPessoaTelefoneDTO->telefoneResidencial = $this->getNumerosTelefone($this->telefoneResidencial);
+    return $obPessoaTelefoneDTO;
   }
 
   /**
@@ -50,7 +73,7 @@ class EditarTelefone {
    * @param  string       $telefone       Telefone que será validado
    * @return string
    */
-  private function getNumerosTelefone(string $telefone): string {
+  private function getNumerosTelefone(?string $telefone): string {
     return preg_replace('/[^\d]/', '', $telefone);
   }
 
