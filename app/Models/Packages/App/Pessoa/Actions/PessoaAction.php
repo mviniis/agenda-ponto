@@ -4,7 +4,7 @@ namespace App\Models\Packages\App\Pessoa\Actions;
 
 use \App\Models\DTOs\PessoaDTO;
 use \Mviniis\ConnectionDatabase\DB\{DBEntity, DBExecute};
-use \Mviniis\ConnectionDatabase\SQL\Parts\{SQLFields, SQLWhere, SQLJoin, SQLSet, SQLSetItem};
+use \Mviniis\ConnectionDatabase\SQL\Parts\{SQLFields, SQLWhere, SQLJoin, SQLSet, SQLSetItem, SQLValues, SQLValuesGroup};
 
 /**
  * class PessoaAction
@@ -95,5 +95,19 @@ class PessoaAction extends DBExecute {
     ]);
 
     return $this->update($set, $condicao)->rowCount() > 0;
+  }
+
+  /**
+   * Método responsável por salvar os dados de uma nova pessoa
+   * @param  PessoaDTO      $obPessoaDTO      Dados que serão adicionados
+   * @return void
+   */
+  public function salvar(PessoaDTO &$obPessoaDTO): void {
+    $fields = [new SQLFields('email')];
+    $sets   = new SQLValues([
+      new SQLValuesGroup([$obPessoaDTO->email])
+    ]);
+
+    $obPessoaDTO->id = $this->insert($fields,$sets)->getLastInsertId();
   }
 }

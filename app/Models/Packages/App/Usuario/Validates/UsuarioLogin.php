@@ -4,6 +4,7 @@ namespace App\Models\Packages\App\Usuario\Validates;
 
 use \Exception;
 use \App\Models\DTOs\UsuarioDTO;
+use \Mviniis\ConnectionDatabase\DTO\DTO;
 use \App\Models\Packages\Sistema\Senha\Gerenciador;
 use \App\Models\Packages\App\Usuario\Actions\UsuarioAction;
 
@@ -27,8 +28,8 @@ class UsuarioLogin {
    * @param string      $senha      Senha do usuário que está realizando o login
    */
   public function __construct(
-    private string $email,
-    private ?string $senha = null,
+    private ?string $email = null,
+    private ?string $senha = null
   ) {}
 
   /**
@@ -57,7 +58,7 @@ class UsuarioLogin {
    * Método responsável por realizar a validação do e-mail do usuário informado
    * @return self
    */
-  private function validarEmail(): self {
+  public function validarEmail(): self {
     // REMOVE OS ESPAÇOS EM BRANCO
     $email = str_replace(' ', '', $this->email);
 
@@ -73,7 +74,7 @@ class UsuarioLogin {
    * Método responsável por realizar a validação da senha
    * @return self
    */
-  private function validarSenha(): self {
+  public function validarSenha(): self {
     if(is_null($this->senha)) throw new Exception('É necessário informar uma senha válida.', 404);
 
     // VALIDA OS PARÂMETROS DA SENHA
@@ -82,6 +83,16 @@ class UsuarioLogin {
     // CRIPTOGRAFA A SENHA
     $this->senha = Gerenciador::criptografarSenha($this->senha);
     return $this;
+  }
+
+  /**
+   * Método responsável por retornar os dados de usuário em um dado DTO
+   * @return DTO
+   */
+  public function getObjetoDtoUsuario(): DTO {
+    $obUsuarioDTO        = new UsuarioDTO;
+    $obUsuarioDTO->senha = $this->senha;
+    return $obUsuarioDTO;
   }
 
   /**

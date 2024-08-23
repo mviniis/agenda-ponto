@@ -4,7 +4,7 @@ namespace App\Models\Packages\App\Pessoa\Actions;
 
 use \App\Models\DTOs\PessoaJuridicaDTO;
 use \Mviniis\ConnectionDatabase\DB\{DBEntity, DBExecute};
-use \Mviniis\ConnectionDatabase\SQL\Parts\{SQLWhere, SQLSet, SQLSetItem};
+use \Mviniis\ConnectionDatabase\SQL\Parts\{SQLFields, SQLWhere, SQLSet, SQLSetItem, SQLValues, SQLValuesGroup};
 
 /**
  * class PessoaJuridicaAction
@@ -50,5 +50,44 @@ class PessoaJuridicaAction extends DBExecute {
 
     if(empty($sets)) return false;
     return $this->update(new SQLSet($sets), $condicao)->rowCount() > 0;
+  }
+
+  /**
+   * Método responsável por verificar se o CNPJ informado já existe no banco
+   * @param  string       $cnpj       CNPJ do usuário
+   * @return bool
+   */
+  public function validarDuplicidadeCnpj(string $cnpj): bool {
+    $condicao = new SQLWhere('cnpj', '=', $cnpj);
+    $campo    = [
+      new SQLFields('id', function: 'COUNT')
+    ];
+
+    $quantidade = (int) $this->select($condicao, fields: $campo)->fetchColumn();
+    return $quantidade > 0;
+  }
+
+  /**
+   * Método responsável por cadastrar os dados pessoais de uma pessoa jurídica
+   * @param  PessoaJuridicaDTO       $obPessoaJuridicaDTO       Dados da pessoa jurídica do usuário a ser adicionado
+   * @return bool
+   */
+  public function salvar(PessoaJuridicaDTO $obPessoaJuridicaDTO): bool {
+    $fields = [
+      new SQLFields('id_pessoa'), new SQLFields('cnpj'),
+      new SQLFields('razao_social'), new SQLFields('nome_fantasia')
+    ];
+
+    $values = new SQLValues([
+      new SQLValuesGroup([
+        $obPessoaJuridicaDTO->idPessoa, 
+        $obPessoaJuridicaDTO->cnpj,
+        $obPessoaJuridicaDTO->razaoSocial,
+        $obPessoaJuridicaDTO->nomeFantasia
+      ])
+    ]);
+
+    $idUsuario = $this->insert($fields, $values)->getLastInsertId();
+    return is_numeric($idUsuario);
   }
 }

@@ -4,7 +4,7 @@ namespace App\Models\Packages\App\Usuario\Actions;
 
 use \App\Models\DTOs\UsuarioDTO;
 use \Mviniis\ConnectionDatabase\DB\{DBExecute, DBEntity};
-use \Mviniis\ConnectionDatabase\SQL\Parts\{SQLJoin, SQLFields, SQLSet, SQLSetItem, SQLWhereGroup, SQLWhere};
+use \Mviniis\ConnectionDatabase\SQL\Parts\{SQLJoin, SQLFields, SQLSet, SQLSetItem, SQLValues, SQLValuesGroup, SQLWhereGroup, SQLWhere};
 
 use function Psy\debug;
 
@@ -62,5 +62,20 @@ class UsuarioAction extends DBExecute {
     ]);
 
     return $this->update($set, $condicao)->rowCount() > 0;
+  }
+
+  /**
+   * Método responsável por cadastrar um usuário
+   * @param  UsuarioDTO       $obUsuarioDTO       Dados do usuário a ser adicionado
+   * @return bool
+   */
+  public function salvar(UsuarioDTO $obUsuarioDTO): bool {
+    $fields = [new SQLFields('id_pessoa'), new SQLFields('senha')];
+    $values = new SQLValues([
+      new SQLValuesGroup([$obUsuarioDTO->idPessoa, $obUsuarioDTO->senha])
+    ]);
+
+    $idUsuario = $this->insert($fields,$values)->getLastInsertId();
+    return is_numeric($idUsuario);
   }
 }

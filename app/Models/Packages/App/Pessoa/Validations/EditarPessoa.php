@@ -124,7 +124,7 @@ class EditarPessoa {
     $nomePossuiValores = (bool) strlen(str_replace(' ', '', $this->nome));
     if(!$nomePossuiValores) {
       $mensagemPessoaFisica   = 'O campo "nome" é obrigatório!';
-      $mensagemPessoaJuridica = 'A campo "Razão Social" é obrigatório!';
+      $mensagemPessoaJuridica = 'O campo "Razão Social" é obrigatório!';
       throw new Exception(($this->tipoPessoaFisica ? $mensagemPessoaFisica: $mensagemPessoaJuridica), 406);
     }
 
