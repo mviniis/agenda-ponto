@@ -83,6 +83,10 @@ Route::middleware(['web'])->group(function() {
     \App\Http\Controllers\App\Recuperacao\Post::class, 'validarSegundaParte'
   ])->name('request.recuperacao.parte2');
   
+  Route::post('/recuperar-senha/parte3', [
+    \App\Http\Controllers\App\Recuperacao\Post::class, 'validarUltimaParte'
+  ])->name('request.recuperacao.parte3');
+  
   Route::post('/cadastrar-tarefa', [
     \App\Http\Controllers\App\Tarefa\Post::class, 'cadastrarTarefa'
   ])->name('request.tarefa');

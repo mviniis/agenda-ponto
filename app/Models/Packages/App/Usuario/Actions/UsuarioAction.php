@@ -4,7 +4,7 @@ namespace App\Models\Packages\App\Usuario\Actions;
 
 use \App\Models\DTOs\UsuarioDTO;
 use \Mviniis\ConnectionDatabase\DB\{DBExecute, DBEntity};
-use \Mviniis\ConnectionDatabase\SQL\Parts\{SQLJoin, SQLFields, SQLWhereGroup, SQLWhere};
+use \Mviniis\ConnectionDatabase\SQL\Parts\{SQLJoin, SQLFields, SQLSet, SQLSetItem, SQLWhereGroup, SQLWhere};
 
 use function Psy\debug;
 
@@ -45,5 +45,22 @@ class UsuarioAction extends DBExecute {
     ];
 
     return $this->select($condicoes, $joins, $campos)->fetchObject();
+  }
+
+  /**
+   * Método responsável por realizar a atualização da senha pelo ID da pessoa que o usuário representa
+   * @param  int          $idPessoa        ID da pessoa
+   * @param  string       $novaSenha       Nova senha do usuário
+   * @return bool
+   */
+  public function atualizarSenhaPorIdPessoa(int $idPessoa, string $novaSenha): bool {
+    if(!is_numeric($idPessoa) || $idPessoa <= 0 || !strlen($novaSenha)) return false;
+
+    $condicao = new SQLWhere('id_pessoa', '=', $idPessoa);
+    $set      = new SQLSet([
+      new SQLSetItem('senha', $novaSenha)
+    ]);
+
+    return $this->update($set, $condicao)->rowCount() > 0;
   }
 }

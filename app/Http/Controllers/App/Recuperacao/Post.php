@@ -6,6 +6,7 @@ use \Exception;
 use \Illuminate\Http\Request;
 use \App\Http\Controllers\Framework\Base;
 use \App\Models\Packages\App\Pessoa\Actions\PessoaAction;
+use \App\Models\Packages\App\Usuario\Actions\UsuarioAction;
 use \App\Models\Packages\App\RecuperacaoSenha\{
   Sessao\RecuperarSenhaSessao,
   Actions\RecuperarSenhaAction,
@@ -89,6 +90,39 @@ class Post extends Base {
                   ->validarCodigoConfirmacao()
                   ->adicionarIndiceUltimaEtapa();
     } catch(Exception $ex) {
+      $codigoHttp           = $ex->getCode();
+      $response['status']   = false;
+      $response['mensagem'] = $ex->getMessage();
+    }
+
+    return response()->json($response, $codigoHttp);
+  }
+
+  /**
+   * Método responsável por realaizar a validaçã da requisição da última etapa da recuperação de senha
+   * @param  Request      $request      Dados da requisição
+   * @return void
+   */
+  public function validarUltimaParte(Request $request) {
+    $codigoHttp  = 200;
+    $response    = [
+      'status'   => true,
+      'mensagem' => 'Senha alterada com sucesso! Efetue o login para continuar.'
+    ];
+    
+    try {
+      $obValidacao = new RecuperarSenhaValidacoes(senha: $request->senha, confirmarSenha: $request->confirmacaoSenha);
+      $novaSenha   = $obValidacao->validarSenhas()->getNovaSenha();
+      $idPessoa    = $obValidacao->getIdUsuarioAlterarSenha();
+
+      // REMOVE A SESSÃO DE RECUPERAÇÃO DE SENHA
+      (new RecuperarSenhaSessao)->remover();
+
+      // SALVA A NOVA SENHA
+      if(!(new UsuarioAction)->atualizarSenhaPorIdPessoa($idPessoa, $novaSenha)) {
+        throw new Exception('Não foi possível atualizar a sua senha. Tente novamente mais tarde.', 500);
+      }
+    } catch (Exception $ex) {
       $codigoHttp           = $ex->getCode();
       $response['status']   = false;
       $response['mensagem'] = $ex->getMessage();

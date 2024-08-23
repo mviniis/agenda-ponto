@@ -60,6 +60,7 @@ class RecuperarSenhaSessao {
     $this->remover();
 
     // SALVA OS NOVOS DADOS
+    $this->obSession->set(['idPessoa'], $obRecupearacao->idPessoa);
     $this->obSession->set(['codigo'], $obRecupearacao->codigo);
     $this->obSession->set(['dataExpiracao'], $obRecupearacao->dataHoraExpiracao);
   }

@@ -2,10 +2,11 @@
 
 namespace App\Models\Packages\App\RecuperacaoSenha\Validates;
 
+use \DateTime;
 use \Exception;
+use \App\Models\Packages\Sistema\Senha\Gerenciador;
 use \App\Models\Packages\App\Pessoa\Actions\PessoaAction;
-use App\Models\Packages\App\RecuperacaoSenha\Sessao\RecuperarSenhaSessao;
-use DateTime;
+use \App\Models\Packages\App\RecuperacaoSenha\Sessao\RecuperarSenhaSessao;
 
 /**
  * class RecuperarSenhaValidacoes
@@ -17,12 +18,16 @@ use DateTime;
 class RecuperarSenhaValidacoes {
   /**
    * Construtor da classe
-   * @param string      $email       E-mail do usuário que está recuperando a senha
-   * @param string      $codigo      Código enviado na recuperação de senha
+   * @param string      $email               E-mail do usuário que está recuperando a senha
+   * @param string      $codigo              Código enviado na recuperação de senha
+   * @param string      $senha               Nova senha do usuário
+   * @param string      $confirmarSenha      Confirmação da senha do usuário
    */
   public function __construct(
     private ?string $email = null,
-    private ?string $codigo = null
+    private ?string $codigo = null,
+    private ?string $senha = null,
+    private ?string $confirmarSenha = null,
   ) {}
 
   /**
@@ -103,5 +108,41 @@ class RecuperarSenhaValidacoes {
    */
   public function gerarCodigoDeValidacao(): string {
     return rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9);
+  }
+
+  /**
+   * Método responsável por validar as senhas
+   * @return self
+   */
+  public function validarSenhas(): self {
+    if(is_null($this->senha) || is_null($this->confirmarSenha)) {
+      throw new Exception('É necessário informar as duas senhas', 406);
+    }
+
+    // VALIDAÇÃO DAS SENHAS
+    if($this->senha !== $this->confirmarSenha) {
+      throw new Exception('As senhas não são iguais', 400);
+    }
+
+    // VALIDAÇÃO DOS PARÂMETROS DA SENHA
+    Gerenciador::validarParametrosSenha($this->senha);
+
+    return $this;
+  }
+
+  /**
+   * Método responsável por encriptografar a nova senha
+   * @return string
+   */
+  public function getNovaSenha(): string {
+    return Gerenciador::criptografarSenha($this->senha);
+  }
+
+  /**
+   * Método responsável por obter o ID da pessoa que está sendo validada
+   * @return int
+   */
+  public function getIdUsuarioAlterarSenha(): int {
+    return (int) (new RecuperarSenhaSessao)->getDadosSalvos()['idPessoa'];
   }
 }
