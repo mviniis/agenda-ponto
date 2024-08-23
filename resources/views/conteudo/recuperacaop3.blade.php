@@ -12,18 +12,26 @@
       <form action="{{ $URL_APP }}/recuperar-senha" method="post" id="terceiroPassoRecuperarSenha">
         <div class="form-floating mb-3">
             <input type="password" class="form-control" id="password" placeholder="Password">
+            
             <label for="password">Digite sua nova senha</label>
-            <span onclick="togglePasswordVisibility()"
-              style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
+
+            <span 
+              data-alterar-visibilidade-senha="#password"
+              style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"
+            >
               <img id="toggleIcon" src="https://img.icons8.com/ios-glyphs/30/000000/visible.png" alt="Mostrar senha" />
             </span>
           </div>
 
           <div class="form-floating mb-3">
             <input type="password" class="form-control" id="passwordconfirm" placeholder="PasswordConfirm">
+
             <label for="passwordConfirm">Confirme sua nova senha</label>
-            <span onclick="togglePasswordVisibility()"
-              style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
+            
+            <span 
+              data-alterar-visibilidade-senha="#passwordconfirm"
+              style="cursor: pointer; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"
+            >
               <img id="toggleIcon" src="https://img.icons8.com/ios-glyphs/30/000000/visible.png" alt="Mostrar senha" />
             </span>
           </div>
