@@ -23,23 +23,10 @@ class PessoaAction extends DBExecute {
    * @return DBEntity
    */
   public function getIdTipoPessoa(int $idPessoa): DBEntity {
-    $condicao = new SQLWhere('pessoa.id', '=', $idPessoa);
+    $obPessoaFisica = (new PessoaFisicaAction)->getPessoaFisicaPorIdPessoa($idPessoa);
+    if($obPessoaFisica->getSuccess()) return $obPessoaFisica;
 
-    $campos = [
-      new SQLFields('id', 'pessoa_fisica', 'idPessoaFisica'),
-      new SQLFields('id', 'pessoa_juridica', 'idPessoaJuridica'),
-    ];
-
-    $joins = [
-      new SQLJoin('pessoa_fisica', tipo: 'LEFT', condicoes: new SQLWhere(
-        'pessoa_fisica.id', '=', 'pessoa.id', true
-      )),
-      new SQLJoin('pessoa_juridica', tipo: 'LEFT', condicoes: new SQLWhere(
-        'pessoa_juridica.id', '=', 'pessoa.id', true
-      ))
-    ];
-
-    return $this->select($condicao, joins: $joins, fields: $campos)->fetchObject();
+    return (new PessoaJuridicaAction)->getPessoaJuridicaPorIdPessoa($idPessoa);
   }
 
   /**
