@@ -50,6 +50,10 @@ class Get extends Base {
     return $this->getConteudo('recuperacao');
   }
 
+  /**
+   * Método responsável por realizar a chamada do conteúdo da segunda etapa da recuperação de senha
+   * @return void
+   */
   public function consultarp2() {
     $this->configure();
 
@@ -58,6 +62,11 @@ class Get extends Base {
 
     return $this->getConteudo('recuperacaop2');
   }
+
+  /**
+   * Método responsável por realizar a chamada do conteúdo da última etapa da recuperação de senha
+   * @return void
+   */
   public function consultarp3() {
     $this->configure();
 

@@ -26,6 +26,26 @@ class RecuperarSenhaSessao {
     $this->obSession = (new SessionManager(['recuperacaoSenha']));
   }
 
+  /**
+   * Método responsável por remover a sessão de recuperação de senha
+   * @return void
+   */
+  public function remover(): void {
+    $this->obSession->remove();
+  }
+
+  /**
+   * Método responsável por salvar a sessão de validade da última etapa
+   * @return void
+   */
+  public function adicionarInciceUltimaEtapa(): void {
+    $this->obSession->set(['ultimaEtapa'], true);
+  }
+
+  /**
+   * Método responsável por consultar todos os dados da sessão
+   * @return array
+   */
   public function getDadosSalvos(): array {
     return $this->obSession->get() ?? [];
   }
@@ -37,7 +57,7 @@ class RecuperarSenhaSessao {
    */
   public function salvarCodigoConfirmacaoSessao(RecuperarSenhaDTO $obRecupearacao): void {
     // REMOVE A SESSÃO CASO JÁ EXISTA
-    $this->obSession->remove();
+    $this->remover();
 
     // SALVA OS NOVOS DADOS
     $this->obSession->set(['codigo'], $obRecupearacao->codigo);

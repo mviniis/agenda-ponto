@@ -69,4 +69,31 @@ class Post extends Base {
 
     return response()->json($response, $codigoHttp);
   }
+
+  /**
+   * Método responsável por realizar a validação da requisição da segunda etapa recuperação de senha
+   * @param  Request      $request      Dados da requisição
+   * @return string
+   */
+  public function validarSegundaParte(Request $request) {
+    $obValidacao = new RecuperarSenhaValidacoes(codigo: $request->codigo);
+    $codigoHttp  = 200;
+    $response    = [
+      'status'   => true,
+      'mensagem' => 'Verificação efetuada com sucesso. Você será redirecionado para redefinir sua senha.'
+    ];
+
+    try{
+      $obValidacao->verificarExistenciaSessao()
+                  ->validarDataExpiracao()
+                  ->validarCodigoConfirmacao()
+                  ->adicionarIndiceUltimaEtapa();
+    } catch(Exception $ex) {
+      $codigoHttp           = $ex->getCode();
+      $response['status']   = false;
+      $response['mensagem'] = $ex->getMessage();
+    }
+
+    return response()->json($response, $codigoHttp);
+  }
 }
